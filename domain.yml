@@ -1,0 +1,55 @@
+actions:
+- utter_greet
+- utter_betaWarning
+- utter_demo
+- utter_demoOptions
+- utter_Menu
+- utter_categories
+- utter_techCategories
+- utter_smartphoneBrands
+- action_Onboarding
+- action_returnSmartphones
+
+intents:
+- getStarted
+- onboardDemo
+- viewMenu
+- viewCategories
+- viewTech
+- viewSmartphones
+
+templates:
+  utter_greet:
+  - text: Jambo! I'm JJ, a bot 🤖 wholly devoted to help you browse the products on offer from Jumia's top brands!
+  utter_betaWarning:
+  - text: I must admit that I'm still in a beta stage, so there may be a few minor hiccups along the way 😅
+  utter_demo:
+  - text: Here's a super quick demo to showcase my abilities. Tap on one the options below!
+  utter_demoOptions:
+  - buttons:
+    - payload: female_versace
+      title: 👩 Versace Perfume
+    - payload:  beats_phones
+      title: Beats 🎧
+  utter_Menu:
+  - buttons:
+    - payload: deals
+      title: Deals
+    - payload: categories
+      title: Categories
+    - payload: help
+      title: Help
+    - payload: subscribe
+      title: Subscribe
+    - payload: feedback
+      title: Feedback
+  utter_categories:
+  - buttons:
+    - payload: tech
+      title: Tech
+    - payload: h_b
+      title: Health & Beauty
+  utter_techCategories:
+  - buttons:
+    - payload: smartphones
+    
