@@ -22,8 +22,5 @@
 * viewCategories
     - utter_categories
 * viewTech
-    - utter_techCategories
-* viewSmartphones
-    - utter_smartphoneBrands
-*
-    - action_returnSmartphones
+    - smartphone_form
+    - form{"name":"smartphone_form"}

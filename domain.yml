@@ -17,6 +17,10 @@ intents:
 - viewCategories
 - viewTech
 - viewSmartphones
+- chooseSmarthphoneBrand
+  
+slots:
+  smar
 
 templates:
   utter_greet:
@@ -51,5 +55,55 @@ templates:
       title: Health & Beauty
   utter_techCategories:
   - buttons:
-    - payload: smartphones
+    - payload: '/selectTechCategory{"category":"smartphones"}'
+      title: "Smartphones"
+    - payload: '/selectTechCategory{"category":"tablets"}'
+      title: "Tablets"
+    - payload: '/selectTechCategory{"category":"laptops"}'
+      title: "Laptops"
+    - payload: '/selectTechCategory{"category":"tvs"}'
+      title: "TVs"
+    - payload: '/selectTechCategory{"category":"smartwatches"}'
+      title: "Smartwatches"
+  utter_viewMenu:
+  - buttons:
+    - payload: '/'
+      title: "Deals"
+    - payload: ''
+      title: "Categories"
+    - payload: ''      
+      title: "Help"
+    - payload: ''
+      title: "Subscribe" # this still needs implementation via the Zapier Email Parser
+    - payload: ''
+      title: "Feedback"
+  utter_smartphoneBrands:
+  - buttons:
+    - payload: '/chooseSmartphoneBrand{"brand":"huawei"}'
+      title: "Huawei"
+    - payload: '/chooseSmartphoneBrand{"brand":"tecno"}'
+      title: "Tecno"
+    - payload: '/chooseSmartphoneBrand{"brand":"infinix"}'
+      title: "Infinix"
+    - payload: '/chooseSmartphoneBrand{"brand":"samsung"}'
+      title: "Samsung"
+    - payload: '/chooseSmartphoneBrand{"brand":"xiaomi"}'
+      title: "Xiaomi"
+    - payload: '/chooseSmartphoneBrand{"brand":"oppo"}'
+      title: "Oppo"
+    - payload: '/chooseSmartphoneBrand{"brand":"apple"}'
+      title: "Apple"
+    - payload: '/chooseSmartphoneBrand{"brand":"sony"}'
+      title: "Sony"
+    - payload: '/chooseSmartphoneBrand{"brand":"nokia"}'
+      title: "Nokia"
+  utter_ask_techCategories:   # necessary for the form to obtain information from the user
+    - buttons:                # needs to be in utter_ask_{slot_name} format. 
+      - payload: "tech"
+        title: "Tech"
+      - payload: "accessories"
+        title: "Accessories"
+      - payload: "h&b"
+        title: "Health & Beauty"
+  
     
