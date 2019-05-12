@@ -1,0 +1,127 @@
+%YAML 1.1
+---
+actions:
+- utter_greet
+- utter_betaWarning
+- utter_demo
+- utter_demoOptions
+- utter_Menu
+- utter_categories
+- utter_techCategories
+- utter_smartphoneBrands
+- action_Onboarding
+- action_returnSmartphones
+- action_show_Menu
+config:
+  store_entities_as_slots: true
+entities: []
+forms:
+- smartphone_form
+intents:
+- getStarted:
+    use_entities: true
+- onboardDemo:
+    use_entities: true
+- viewMenu:
+    use_entities: true
+- viewCategories:
+    use_entities: true
+- viewTech:
+    use_entities: true
+- viewSmartphones:
+    use_entities: true
+- chooseSmarthphoneBrand:
+    use_entities: true
+slots:
+  requested_slot:
+    auto_fill: true
+    initial_value: null
+    type: rasa_core.slots.UnfeaturizedSlot
+  smartphoneBrand:
+    auto_fill: true
+    initial_value: null
+    type: rasa_core.slots.UnfeaturizedSlot
+  techCategory:
+    auto_fill: true
+    initial_value: null
+    type: rasa_core.slots.UnfeaturizedSlot
+templates:
+  utter_Menu:
+  - buttons:
+    - payload: deals
+      title: Deals
+    - payload: categories
+      title: Categories
+    - payload: help
+      title: Help
+    - payload: subscribe
+      title: Subscribe
+    - payload: feedback
+      title: Feedback
+    text: Menu
+  utter_ask_category:
+  - buttons:
+    - payload: tech
+      title: Tech
+    - payload: accessories
+      title: Accessories
+    - payload: h&b
+      title: Health & Beauty
+    text: tech cat
+  utter_ask_smartphoneBrand:
+  - buttons:
+    - payload: /viewSmartphones{"smartphoneBrand":"Huawei"}
+      title: Huawei
+    - payload: /viewSmartphones{"smartphoneBrand":"Tecno"}
+      title: Tecno
+    - payload: /viewSmartphones{"smartphoneBrand":"Infinix"}
+      title: Infinix
+    - payload: /viewSmartphones{"smartphoneBrand":"Samsung"}
+      title: Samsung
+    - payload: /viewSmartphones{"smartphoneBrand":"Xiaomi"}
+      title: Xiaomi
+    - payload: /viewSmartphones{"smartphoneBrand":"Oppo"}
+      title: Oppo
+    - payload: /viewSmartphones{"smartphoneBrand":"Apple"}
+      title: Apple
+    - payload: /viewSmartphones{"smartphoneBrand":"Sony"}
+      title: Sony
+    - payload: /viewSmartphones{"smartphoneBrand":"Nokia"}
+      title: Nokia
+    text: which brand
+  utter_ask_techCategory:
+  - buttons:
+    - payload: /viewTech{"techCategory":"smartphones"}
+      title: Smartphones
+    - payload: /viewTech{"techCategory":"tablets"}
+      title: Tablets
+    - payload: /viewTech{"techCategory":"laptops"}
+      title: Laptops
+    - payload: /viewTech{"techCategory":"tvs"}
+      title: TVs
+    - payload: /viewTech{"techCategory":"smartwatches"}
+      title: Smartwatches
+    text: A nice selection of tech categories
+  utter_betaWarning:
+  - text: I must admit that I'm still in a beta stage, so there may be a few minor
+      hiccups along the way 😅
+  utter_categories:
+  - buttons:
+    - payload: tech
+      title: Tech
+    - payload: h_b
+      title: Health & Beauty
+    text: Available categories
+  utter_demo:
+  - text: Here's a super quick demo to showcase my abilities. Tap on one the options
+      below!
+  utter_demoOptions:
+  - buttons:
+    - payload: female_versace
+      title: 👩 Versace Perfume
+    - payload: ' beats_phones'
+      title: Beats 🎧
+    text: Pick one...
+  utter_greet:
+  - text: Jambo! I'm JJ, a bot 🤖 wholly devoted to help you browse the products on
+      offer from Jumia's top brands!

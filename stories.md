@@ -5,18 +5,11 @@
     - utter_demo
     - utter_demoOptions
 * onboardDemo
-    - action_OnboardingDemo
-    - utter_Menu
+    - action_show_Menu    
 
 ## mainMenu
 * viewMenu
-    - utter_Menu
-
-## displayTechCategories
-* viewCategories
-    - utter_categories
-* viewTech
-    - utter_techCategories
+    - action_show_Menu
 
 ## displaySmartphones
 * viewCategories

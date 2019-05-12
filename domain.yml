@@ -9,6 +9,8 @@ actions:
 - utter_smartphoneBrands
 - action_Onboarding
 - action_returnSmartphones
+- action_show_Menu
+#- action_OnboardingDemo
 
 intents:
 - getStarted
@@ -20,84 +22,83 @@ intents:
 - chooseSmarthphoneBrand
   
 slots:
-  smar
+  smartphoneBrand:
+    type: unfeaturized
+  techCategory:
+    type: unfeaturized
+
+forms:
+  - smartphone_form
 
 templates:
   utter_greet:
-  - text: Jambo! I'm JJ, a bot 🤖 wholly devoted to help you browse the products on offer from Jumia's top brands!
+  - text: "Jambo! I'm JJ, a bot 🤖 wholly devoted to help you browse the products on offer from Jumia's top brands!"
   utter_betaWarning:
-  - text: I must admit that I'm still in a beta stage, so there may be a few minor hiccups along the way 😅
+  - text: "I must admit that I'm still in a beta stage, so there may be a few minor hiccups along the way 😅"
   utter_demo:
-  - text: Here's a super quick demo to showcase my abilities. Tap on one the options below!
+  - text: "Here's a super quick demo to showcase my abilities. Tap on one the options below!"
   utter_demoOptions:
   - buttons:
-    - payload: female_versace
-      title: 👩 Versace Perfume
-    - payload:  beats_phones
-      title: Beats 🎧
+    - payload: "female_versace"
+      title: "👩 Versace Perfume"
+    - payload: " beats_phones"
+      title: "Beats 🎧"
+    text: "Pick one..."
   utter_Menu:
   - buttons:
-    - payload: deals
-      title: Deals
-    - payload: categories
-      title: Categories
-    - payload: help
-      title: Help
-    - payload: subscribe
-      title: Subscribe
-    - payload: feedback
-      title: Feedback
+    - payload: "deals"
+      title: "Deals"
+    - payload: "categories"
+      title: "Categories"
+    - payload: "help"
+      title: "Help"
+    - payload: "subscribe"
+      title: "Subscribe"     # this still needs implementation via the Zapier Email Parser
+    - payload: "feedback"
+      title: "Feedback"
+    text: "Menu"
   utter_categories:
   - buttons:
-    - payload: tech
-      title: Tech
-    - payload: h_b
-      title: Health & Beauty
-  utter_techCategories:
+    - payload: "tech"
+      title: "Tech"
+    - payload: "h_b"
+      title: "Health & Beauty"
+    text: "Available categories"
+  utter_ask_techCategory:
   - buttons:
-    - payload: '/selectTechCategory{"category":"smartphones"}'
+    - payload: '/viewTech{"techCategory":"smartphones"}'
       title: "Smartphones"
-    - payload: '/selectTechCategory{"category":"tablets"}'
+    - payload: '/viewTech{"techCategory":"tablets"}'
       title: "Tablets"
-    - payload: '/selectTechCategory{"category":"laptops"}'
+    - payload: '/viewTech{"techCategory":"laptops"}'
       title: "Laptops"
-    - payload: '/selectTechCategory{"category":"tvs"}'
+    - payload: '/viewTech{"techCategory":"tvs"}'
       title: "TVs"
-    - payload: '/selectTechCategory{"category":"smartwatches"}'
+    - payload: '/viewTech{"techCategory":"smartwatches"}'
       title: "Smartwatches"
-  utter_viewMenu:
+    text: "A nice selection of tech categories"
+  utter_ask_smartphoneBrand:
   - buttons:
-    - payload: '/'
-      title: "Deals"
-    - payload: ''
-      title: "Categories"
-    - payload: ''      
-      title: "Help"
-    - payload: ''
-      title: "Subscribe" # this still needs implementation via the Zapier Email Parser
-    - payload: ''
-      title: "Feedback"
-  utter_smartphoneBrands:
-  - buttons:
-    - payload: '/chooseSmartphoneBrand{"brand":"huawei"}'
+    - payload: '/viewSmartphones{"smartphoneBrand":"Huawei"}'
       title: "Huawei"
-    - payload: '/chooseSmartphoneBrand{"brand":"tecno"}'
+    - payload: '/viewSmartphones{"smartphoneBrand":"Tecno"}'
       title: "Tecno"
-    - payload: '/chooseSmartphoneBrand{"brand":"infinix"}'
+    - payload: '/viewSmartphones{"smartphoneBrand":"Infinix"}'
       title: "Infinix"
-    - payload: '/chooseSmartphoneBrand{"brand":"samsung"}'
+    - payload: '/viewSmartphones{"smartphoneBrand":"Samsung"}'
       title: "Samsung"
-    - payload: '/chooseSmartphoneBrand{"brand":"xiaomi"}'
+    - payload: '/viewSmartphones{"smartphoneBrand":"Xiaomi"}'
       title: "Xiaomi"
-    - payload: '/chooseSmartphoneBrand{"brand":"oppo"}'
+    - payload: '/viewSmartphones{"smartphoneBrand":"Oppo"}'
       title: "Oppo"
-    - payload: '/chooseSmartphoneBrand{"brand":"apple"}'
+    - payload: '/viewSmartphones{"smartphoneBrand":"Apple"}'
       title: "Apple"
-    - payload: '/chooseSmartphoneBrand{"brand":"sony"}'
+    - payload: '/viewSmartphones{"smartphoneBrand":"Sony"}'
       title: "Sony"
-    - payload: '/chooseSmartphoneBrand{"brand":"nokia"}'
+    - payload: '/viewSmartphones{"smartphoneBrand":"Nokia"}'
       title: "Nokia"
-  utter_ask_techCategories:   # necessary for the form to obtain information from the user
+    text: "which brand"
+  utter_ask_category:   # necessary for the form to obtain information from the user
     - buttons:                # needs to be in utter_ask_{slot_name} format. 
       - payload: "tech"
         title: "Tech"
@@ -105,5 +106,4 @@ templates:
         title: "Accessories"
       - payload: "h&b"
         title: "Health & Beauty"
-  
-    
+      text: "tech cat"

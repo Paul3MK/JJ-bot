@@ -1,0 +1,31 @@
+{
+  "states": [
+    "intent_chooseSmarthphoneBrand",
+    "intent_getStarted",
+    "intent_onboardDemo",
+    "intent_viewCategories",
+    "intent_viewMenu",
+    "intent_viewSmartphones",
+    "intent_viewTech",
+    "prev_action_listen",
+    "prev_action_restart",
+    "prev_action_default_fallback",
+    "prev_action_deactivate_form",
+    "prev_action_revert_fallback_events",
+    "prev_action_default_ask_affirmation",
+    "prev_action_default_ask_rephrase",
+    "prev_utter_greet",
+    "prev_utter_betaWarning",
+    "prev_utter_demo",
+    "prev_utter_demoOptions",
+    "prev_utter_Menu",
+    "prev_utter_categories",
+    "prev_utter_techCategories",
+    "prev_utter_smartphoneBrands",
+    "prev_action_Onboarding",
+    "prev_action_returnSmartphones",
+    "prev_action_show_Menu",
+    "prev_smartphone_form",
+    "active_form_smartphone_form"
+  ]
+}

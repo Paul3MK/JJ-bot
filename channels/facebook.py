@@ -68,13 +68,13 @@ class FacebookInput(FBFacebookInput):
 
     def blueprint(self, on_new_message):
 
-        fb_webhook = Blueprint('fb_webhook', __name__)
+        fb_webhook0 = Blueprint('fb_webhook0', __name__) # changed name from fb_webhook to fb_webhook0 to prevent conflicts with original 
 
-        @fb_webhook.route("/", methods=['GET'])
+        @fb_webhook0.route("/", methods=['GET'])
         def health():
             return jsonify({"status": "ok"})
 
-        @fb_webhook.route("/webhook", methods=['GET'])
+        @fb_webhook0.route("/webhook", methods=['GET'])
         def token_verification():
             if request.args.get("hub.verify_token") == self.fb_verify:
                 return request.args.get("hub.challenge")
@@ -84,7 +84,7 @@ class FacebookInput(FBFacebookInput):
                         "your webhook settings on the facebook app.")
                 return "failure, invalid token"
 
-        @fb_webhook.route("/webhook", methods=['POST'])
+        @fb_webhook0.route("/webhook", methods=['POST'])
         def webhook():
             signature = request.headers.get("X-Hub-Signature") or ''
             if not self.validate_hub_signature(self.fb_secret, request.data,
@@ -98,4 +98,4 @@ class FacebookInput(FBFacebookInput):
             messenger.handle(request.get_json(force=True))
             return "success"
 
-        return fb_webhook
+        return fb_webhook0
