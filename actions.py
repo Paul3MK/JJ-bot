@@ -71,39 +71,40 @@ class DisplayMenu(Action):
 
     def run(self, dispatcher, tracker, domain):
 
-        elements = [
+        qckReply = [
             {   
-                "text": "Menu", 
-                "quick_replies": [
+                "text":"Menu", 
+                "quick_replies":[
                     {
-                        "content_type": "text",
-                        "title": "Deals",
-                        "payload": "/viewDeals"
+                        "content_type":"text",
+                        "title":"Deals",
+                        "payload":"/viewDeals"
                     },
                     {
-                        "content_type": "text",
-                        "title": "Categories",
-                        "payload": "/viewCategories"
+                        "content_type":"text",
+                        "title":"Categories",
+                        "payload":"/viewCategories"
                     },
                     {
-                        "content_type": "text",
-                        "title": "Help",
-                        "payload": "/viewHelp"
+                        "content_type":"text",
+                        "title":"Help",
+                        "payload":"/viewHelp"
                     },
                     {
-                        "content_type": "text",
-                        "title": "Subscribe",
-                        "payload": "/viewSubscribe"
+                        "content_type":"text",
+                        "title":"Subscribe",
+                        "payload":"/viewSubscribe"
                     },
                     {
-                        "content_type": "text",
-                        "title": "Feedback",
-                        "payload": "/viewFeedback"
+                        "content_type":"text",
+                        "title":"Feedback",
+                        "payload":"/viewFeedback"
                     }
                 ]
                 
-            }
+            }   
         ]
 
-        dispatcher.utter_custom_message(*elements)
+        dispatcher.utter_custom_message(*qckReply)
+        return []
               
