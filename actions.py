@@ -4,11 +4,11 @@ from rasa_core_sdk.events import SlotSet
 import psycopg2
 
 """class TechCategoriesForm(FormAction):
-    # This form will take care of the user's choice of category (within Tech) and the brand as well.
+    # This form will take   care of the user's choice of category (within Tech) and the brand as well.
     # The value of the brand slot can be used to create a database query right here, and the values will be returned from the db.
     # We will do this in the ActionReturnSmartphones block, so we must call this action from here.
     
-    def name(self):
+    def name(self): 
 
         return "categories_form"
 
@@ -72,9 +72,6 @@ class DisplayMenu(Action):
     def run(self, dispatcher, tracker, domain):
 
         qckReply = [
-            {   
-                "text":"Menu", 
-                "quick_replies":[
                     {
                         "content_type":"text",
                         "title":"Deals",
@@ -99,12 +96,56 @@ class DisplayMenu(Action):
                         "content_type":"text",
                         "title":"Feedback",
                         "payload":"/viewFeedback"
-                    }
-                ]
-                
-            }   
+                    }  
         ]
 
-        dispatcher.utter_custom_message(*qckReply)
+        dispatcher.utter_custom_quick_reply(*qckReply)
         return []
-              
+
+class DisplayOnboardingVersace(Action):
+
+    def name(self):
+        return "action_show_versace"
+
+    def run(self, dispatcher, tracker, domain):
+        versaceCard = [
+            {
+                "title": "VERSACE Bright Crystal For Women EDT - 90 ml",
+                "subtitle": "versace women's bright crystal",
+                "image_url": "https://ke.jumia.is/YsNpaoCY8BZkWdZ0_HAZeeUGYws=/fit-in/500x500/filters:fill(white):sharpen(1,0,false):quality(100)/product/43/5375/1.jpg?1323",
+                "buttons" : [
+                    {
+                        "type": "postback",
+                        "title": "Buy",
+                        "payload": '/action_show_menu'
+                    }
+                ]
+            }
+        ]
+
+        dispatcher.utter_custom_message(*versaceCard)
+        return []
+
+class DisplayOnboardingBeats(Action):
+
+    def name(self):
+        return "action_show_beats"
+
+    def run(self, dispatcher, tracker, domain):
+        beatsCard = [
+            {
+                "title": "beats Solo2 Wired Over-Ear Headphone On-Ear Stereo Music Headset ANC Noise Reduction Earphone White Second-hand No Package No Accessories",
+                "subtitle": "beats solo2 wired",
+                "image_url": "https://ke.jumia.is/FZcjHsJvmR7tQBijpFq-Jmov4jI=/fit-in/500x500/filters:fill(white):sharpen(1,0,false):quality(100)/product/52/157001/1.jpg?0416",
+                "buttons" : [
+                    {
+                        "type": "postback",
+                        "title": "Buy",
+                        "payload": '/action_show_menu'
+                    }
+                ]
+            }
+        ]
+
+        dispatcher.utter_custom_message(*beatsCard)
+        return []

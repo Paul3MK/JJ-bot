@@ -3,29 +3,31 @@
     "action_listen": {
       "slots": []
     },
-    "action_show_Menu": {
+    "smartphone_form": {
       "slots": []
     },
-    "smartphone_form": {
+    "action_show_Menu": {
       "slots": []
     }
   },
-  "python": "3.6.8",
+  "python": "3.7.2",
   "max_histories": [
     5,
     null,
     5,
-    2
+    2,
+    5
   ],
   "ensemble_name": "rasa_core.policies.ensemble.SimplePolicyEnsemble",
   "policy_names": [
     "rasa_core.policies.keras_policy.KerasPolicy",
     "rasa_core.policies.fallback.FallbackPolicy",
     "rasa_core.policies.memoization.MemoizationPolicy",
-    "rasa_core.policies.form_policy.FormPolicy"
+    "rasa_core.policies.form_policy.FormPolicy",
+    "rasa_core.policies.mapping_policy.MappingPolicy"
   ],
-  "trained_at": "20190507-234304",
-  "rasa_core": "0.13.2",
-  "tensorflow": "1.12.0",
-  "sklearn": "0.20.3"
+  "trained_at": "20190518-110756",
+  "rasa_core": "0.14.4",
+  "tensorflow": "1.13.1",
+  "sklearn": "0.20.2"
 }

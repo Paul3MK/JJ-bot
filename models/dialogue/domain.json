@@ -2,7 +2,8 @@
   "states": [
     "intent_chooseSmarthphoneBrand",
     "intent_getStarted",
-    "intent_onboardDemo",
+    "intent_onboardDemoBeats",
+    "intent_onboardDemoVersace",
     "intent_viewCategories",
     "intent_viewMenu",
     "intent_viewSmartphones",
@@ -14,6 +15,7 @@
     "prev_action_revert_fallback_events",
     "prev_action_default_ask_affirmation",
     "prev_action_default_ask_rephrase",
+    "prev_action_back",
     "prev_utter_greet",
     "prev_utter_betaWarning",
     "prev_utter_demo",
@@ -25,6 +27,8 @@
     "prev_action_Onboarding",
     "prev_action_returnSmartphones",
     "prev_action_show_Menu",
+    "prev_action_show_beats",
+    "prev_action_show_versace",
     "prev_smartphone_form",
     "active_form_smartphone_form"
   ]

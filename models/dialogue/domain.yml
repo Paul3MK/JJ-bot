@@ -12,6 +12,8 @@ actions:
 - action_Onboarding
 - action_returnSmartphones
 - action_show_Menu
+- action_show_beats
+- action_show_versace
 config:
   store_entities_as_slots: true
 entities: []
@@ -20,7 +22,9 @@ forms:
 intents:
 - getStarted:
     use_entities: true
-- onboardDemo:
+- onboardDemoVersace:
+    use_entities: true
+- onboardDemoBeats:
     use_entities: true
 - viewMenu:
     use_entities: true
@@ -117,9 +121,9 @@ templates:
       below!
   utter_demoOptions:
   - buttons:
-    - payload: female_versace
+    - payload: /onboardDemoVersace
       title: 👩 Versace Perfume
-    - payload: ' beats_phones'
+    - payload: /onboardDemoBeats
       title: Beats 🎧
     text: Pick one...
   utter_greet:

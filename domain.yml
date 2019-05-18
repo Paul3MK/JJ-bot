@@ -10,11 +10,14 @@ actions:
 - action_Onboarding
 - action_returnSmartphones
 - action_show_Menu
+- action_show_beats
+- action_show_versace
 #- action_OnboardingDemo
 
 intents:
 - getStarted
-- onboardDemo
+- onboardDemoVersace
+- onboardDemoBeats
 - viewMenu
 - viewCategories
 - viewTech
@@ -39,9 +42,9 @@ templates:
   - text: "Here's a super quick demo to showcase my abilities. Tap on one the options below!"
   utter_demoOptions:
   - buttons:
-    - payload: "female_versace"
+    - payload: "/onboardDemoVersace"
       title: "👩 Versace Perfume"
-    - payload: " beats_phones"
+    - payload: "/onboardDemoBeats"
       title: "Beats 🎧"
     text: "Pick one..."
   utter_Menu:
