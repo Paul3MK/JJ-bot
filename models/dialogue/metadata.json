@@ -3,10 +3,19 @@
     "action_listen": {
       "slots": []
     },
-    "smartphone_form": {
+    "tech_form": {
       "slots": []
     },
-    "action_show_Menu": {
+    "action_display_brands_smartphones": {
+      "slots": []
+    },
+    "utter_Menu.quick_replies": {
+      "slots": []
+    },
+    "action_show_beats": {
+      "slots": []
+    },
+    "action_show_versace": {
       "slots": []
     }
   },
@@ -26,7 +35,7 @@
     "rasa_core.policies.form_policy.FormPolicy",
     "rasa_core.policies.mapping_policy.MappingPolicy"
   ],
-  "trained_at": "20190518-110756",
+  "trained_at": "20190520-150220",
   "rasa_core": "0.14.4",
   "tensorflow": "1.13.1",
   "sklearn": "0.20.2"

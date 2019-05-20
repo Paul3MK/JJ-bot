@@ -21,15 +21,16 @@
     "prev_utter_demo",
     "prev_utter_demoOptions",
     "prev_utter_Menu",
+    "prev_utter_Menu.quick_replies",
     "prev_utter_categories",
     "prev_utter_techCategories",
     "prev_utter_smartphoneBrands",
     "prev_action_Onboarding",
     "prev_action_returnSmartphones",
-    "prev_action_show_Menu",
     "prev_action_show_beats",
     "prev_action_show_versace",
-    "prev_smartphone_form",
-    "active_form_smartphone_form"
+    "prev_action_display_brands_smartphones",
+    "prev_tech_form",
+    "active_form_tech_form"
   ]
 }

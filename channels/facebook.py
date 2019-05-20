@@ -58,21 +58,14 @@ class MessengerBot(FBMessengerBot):
         self.messenger_client.send(payload,
                                    self._recipient_json(recipient_id),
                                    'RESPONSE')
-    def send_custom_quick_reply(self, recipient_id, elements):
-        # type: (Text, List[Dict[Text, Any]]) -> None
-        """Sends quick replies (hacked solution) to the output."""
+    @staticmethod
+    def _add_text_info(quick_replies: List[Dict[Text, Any]]) -> None:
+        """Set quick reply type to text for all buttons without content type.
+        Happens in place."""
 
-        payload = {
-            "quick_replies": {
-                "content_type": "text",
-                "payload": {
-                    "elements": elements
-                }
-            }
-        }
-        self.messenger_client.send(payload,
-                                   self._recipient_json(recipient_id),
-                                   'RESPONSE')
+        for quick_reply in quick_replies:
+            if not quick_reply.get('type'):
+                quick_reply['content_type'] = "text"
 
 
 class FacebookInput(FBFacebookInput):

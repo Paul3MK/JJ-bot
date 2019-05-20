@@ -4,14 +4,15 @@ actions:
 - utter_demo
 - utter_demoOptions
 - utter_Menu
+- utter_Menu.quick_replies
 - utter_categories
 - utter_techCategories
 - utter_smartphoneBrands
 - action_Onboarding
 - action_returnSmartphones
-- action_show_Menu
 - action_show_beats
 - action_show_versace
+- action_display_brands_smartphones
 #- action_OnboardingDemo
 
 intents:
@@ -29,9 +30,11 @@ slots:
     type: unfeaturized
   techCategory:
     type: unfeaturized
+  smartwatchBrand:
+    type: unfeaturized
 
 forms:
-  - smartphone_form
+  - tech_form
 
 templates:
   utter_greet:
@@ -47,22 +50,28 @@ templates:
     - payload: "/onboardDemoBeats"
       title: "Beats 🎧"
     text: "Pick one..."
-  utter_Menu:
-  - buttons:
-    - payload: "deals"
+  utter_Menu.quick_replies:
+  - text: "Menu"
+    quick_replies:
+    - content_type: "text"
+      payload: "/deals"
       title: "Deals"
-    - payload: "categories"
+    - content_type: "text"
+      payload: "/viewCategories"
       title: "Categories"
-    - payload: "help"
+    - content_type: "text"
+      payload: "/help"
       title: "Help"
-    - payload: "subscribe"
+    - content_type: "text"
+      payload: "/subscribe"
       title: "Subscribe"     # this still needs implementation via the Zapier Email Parser
-    - payload: "feedback"
+    - content_type: "text"
+      payload: "/feedback"
       title: "Feedback"
-    text: "Menu"
+    
   utter_categories:
   - buttons:
-    - payload: "tech"
+    - payload: "/viewTech"
       title: "Tech"
     - payload: "h_b"
       title: "Health & Beauty"

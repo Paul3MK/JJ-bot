@@ -5,8 +5,7 @@
     - utter_demo
     - utter_demoOptions
 * onboardDemoVersace
-    - action_show_versace
-    - action_show_Menu    
+    - action_show_versace  
 
 ## onboarding 2
 * getStarted
@@ -15,21 +14,16 @@
     - utter_demo
     - utter_demoOptions
 * onboardDemoBeats
-    - action_show_beats
-    - action_show_Menu  
+    - action_show_beats 
 
 ## mainMenu
 * viewMenu
-    - action_show_Menu
+    - utter_Menu.quick_replies
 
-## displaySmartphones
+## displayChosenTechCat
 * viewCategories
     - utter_categories
 * viewTech
-    - smartphone_form
-    - form{"name":"smartphone_form"}
-
-## displayTablets
-* viewCategories
-    - utter_categories
-* viewTech
+    - tech_form
+    - form{"name":"tech_form"}
+    - action_display_brands_smartphones

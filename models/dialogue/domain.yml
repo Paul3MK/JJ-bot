@@ -6,19 +6,20 @@ actions:
 - utter_demo
 - utter_demoOptions
 - utter_Menu
+- utter_Menu.quick_replies
 - utter_categories
 - utter_techCategories
 - utter_smartphoneBrands
 - action_Onboarding
 - action_returnSmartphones
-- action_show_Menu
 - action_show_beats
 - action_show_versace
+- action_display_brands_smartphones
 config:
   store_entities_as_slots: true
 entities: []
 forms:
-- smartphone_form
+- tech_form
 intents:
 - getStarted:
     use_entities: true
@@ -45,22 +46,31 @@ slots:
     auto_fill: true
     initial_value: null
     type: rasa_core.slots.UnfeaturizedSlot
+  smartwatchBrand:
+    auto_fill: true
+    initial_value: null
+    type: rasa_core.slots.UnfeaturizedSlot
   techCategory:
     auto_fill: true
     initial_value: null
     type: rasa_core.slots.UnfeaturizedSlot
 templates:
-  utter_Menu:
-  - buttons:
-    - payload: deals
+  utter_Menu.quick_replies:
+  - quick_replies:
+    - content_type: text
+      payload: /deals
       title: Deals
-    - payload: categories
+    - content_type: text
+      payload: /viewCategories
       title: Categories
-    - payload: help
+    - content_type: text
+      payload: /help
       title: Help
-    - payload: subscribe
+    - content_type: text
+      payload: /subscribe
       title: Subscribe
-    - payload: feedback
+    - content_type: text
+      payload: /feedback
       title: Feedback
     text: Menu
   utter_ask_category:
@@ -111,7 +121,7 @@ templates:
       hiccups along the way 😅
   utter_categories:
   - buttons:
-    - payload: tech
+    - payload: /viewTech
       title: Tech
     - payload: h_b
       title: Health & Beauty

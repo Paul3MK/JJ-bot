@@ -2,6 +2,10 @@ from rasa_core_sdk import Action
 from rasa_core_sdk.forms import FormAction
 from rasa_core_sdk.events import SlotSet
 import psycopg2
+import imgscrapertest as imgscraper
+
+cat_slot_value = 0
+brand_slot_value = 0
 
 """class TechCategoriesForm(FormAction):
     # This form will take   care of the user's choice of category (within Tech) and the brand as well.
@@ -35,72 +39,83 @@ import psycopg2
         # we will call the ActionReturnSmartphones in this method, or perhaps code the db connection here straightaway
         # the db result must be returned here, and then formatted for FBMessenger"""
 
-class SmartphoneForm(FormAction):
+class TechCatForm(FormAction):
     
     def name(self):
 
-        return "smartphone_form"
+        return "tech_form"
 
     @staticmethod
     def required_slots(tracker):
 
-        return ["techCategory", "smartphoneBrand"] 
+        if tracker.get_slot('techCategory') == 'smartphones':
+            return ["techCategory", "smartphoneBrand"]
+        elif tracker.get_slot('techCategory') == 'tablets':
+            return ["techCategory", "tabletBrand"]
+        elif tracker.get_slot('techCategory') == 'laptops':
+            return ["techCategory", "laptopBrand"]
+        elif tracker.get_slot('techCategory') == 'tvs':
+            return ["techCategory", "tvBrand"]
+        else:
+            return ["techCategory", "smartwatchBrand"]
 
     def submit(self, dispatcher, tracker, domain):
-        slot_value = tracker.get_slot('smartphoneBrand')
+        global cat_slot_value 
+        cat_slot_value = tracker.get_slot('techCategory')
+        global brand_slot_value 
+
+        brand_dict = {"smartphones":"smartphoneBrand", "tablets":"tabletBrand", "laptops":"laptopBrand", "tvs":"tvBrand", "smartwatches":"smartwatchBrand"}
+        
+        tCat = ['smartphones', 'tablets', 'laptops', 'tvs', 'smartwatches']
+
+        for category in tCat:
+            if (cat_slot_value == category):
+                brand_slot_value = tracker.get_slot(brand_dict[category])
+
+                dispatcher.utter_message("You have chosen {}".format(category))
+                dispatcher.utter_message("Brand is {}".format(brand_slot_value))
+
+    
+        return[]
+
+
+class SmarthponeViewAction(Action):
+    def name(self):
+        return "action_display_brands_smartphones"
+    
+    def run(self, dispatcher, tracker, domain):
 
         con = psycopg2.connect(database="jjtestdb", user="postgres", password="hieg")
         off = 0
         with con:
 
             cur = con.cursor()
-            
+            smartphone_cards = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+
             for i in range(0, 9):
-                cur.execute("SELECT * FROM smartphones WHERE brand=%s LIMIT 1 OFFSET %s", (slot_value, off))
+                cur.execute("SELECT * FROM smartphones WHERE brand=%s LIMIT 1 OFFSET %s", (brand_slot_value, off))
                 returned_phone = cur.fetchone()
                 off += 1
                 if returned_phone == None:
                     break
-                dispatcher.utter_message("{}, it works!!".format(returned_phone))
+                img = imgscraper.JumiaImgScraper(returned_phone[5])
+                smartphone_cards[i] = {
+                        "title": returned_phone[1]+" "+returned_phone[2],
+                        "subtitle": "KSh "+returned_phone[3]+" ("+returned_phone[4]+")",
+                        "image_url": img,
+                        "buttons": [
+                            {
+                                "type":"web_url",
+                                "url": returned_phone[5],
+                                "title":"Buy",
+                                "webview_height_ratio": "tall",
+                            }
+                        ]
+                    }
+            dispatcher.utter_custom_message(*smartphone_cards)
+                # dispatcher.utter_message("{}, it works!!".format(returned_phone))
         return[]
 
-class DisplayMenu(Action):
-
-    def name(self):
-        return "action_show_Menu"
-
-    def run(self, dispatcher, tracker, domain):
-
-        qckReply = [
-                    {
-                        "content_type":"text",
-                        "title":"Deals",
-                        "payload":"/viewDeals"
-                    },
-                    {
-                        "content_type":"text",
-                        "title":"Categories",
-                        "payload":"/viewCategories"
-                    },
-                    {
-                        "content_type":"text",
-                        "title":"Help",
-                        "payload":"/viewHelp"
-                    },
-                    {
-                        "content_type":"text",
-                        "title":"Subscribe",
-                        "payload":"/viewSubscribe"
-                    },
-                    {
-                        "content_type":"text",
-                        "title":"Feedback",
-                        "payload":"/viewFeedback"
-                    }  
-        ]
-
-        dispatcher.utter_custom_quick_reply(*qckReply)
-        return []
 
 class DisplayOnboardingVersace(Action):
 
