@@ -1,8 +1,9 @@
-from rasa_core_sdk import Action
-from rasa_core_sdk.forms import FormAction
-from rasa_core_sdk.events import SlotSet
+from rasa_sdk import Action
+from rasa_sdk.forms import FormAction
+from rasa_sdk.events import SlotSet
 import psycopg2
 import imgscrapertest as imgscraper
+import re
 
 cat_slot_value = 0
 brand_slot_value = 0
@@ -93,16 +94,23 @@ class SmarthponeViewAction(Action):
             smartphone_cards = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
             for i in range(0, 9):
-                cur.execute("SELECT * FROM smartphones WHERE brand=%s LIMIT 1 OFFSET %s", (brand_slot_value, off))
+                cur.execute("SELECT * FROM smartphones WHERE brand = %s LIMIT 1 OFFSET %s", (brand_slot_value, off))
                 returned_phone = cur.fetchone()
                 off += 1
                 if returned_phone == None:
                     break
-                img = imgscraper.JumiaImgScraper(returned_phone[5])
+                regex = re.compile("\d+.")
+                lDscnt = re.findall(regex, returned_phone[4])
+                for j in lDscnt:
+                    dscnt = j
+                if dscnt == None:
+                    dscnt = "No discount"
+                else:
+                    dscnt = "{} off".format(dscnt)
                 smartphone_cards[i] = {
                         "title": returned_phone[1]+" "+returned_phone[2],
-                        "subtitle": "KSh "+returned_phone[3]+" ("+returned_phone[4]+")",
-                        "image_url": img,
+                        "subtitle": "KSh "+returned_phone[3]+" ("+dscnt+")",
+                        "image_url": returned_phone[0],
                         "buttons": [
                             {
                                 "type":"web_url",
@@ -112,7 +120,7 @@ class SmarthponeViewAction(Action):
                             }
                         ]
                     }
-            dispatcher.utter_custom_message(*smartphone_cards)
+            dispatcher.utter_elements(*smartphone_cards)
                 # dispatcher.utter_message("{}, it works!!".format(returned_phone))
         return[]
 
@@ -138,7 +146,7 @@ class DisplayOnboardingVersace(Action):
             }
         ]
 
-        dispatcher.utter_custom_message(*versaceCard)
+        dispatcher.utter_elements(*versaceCard)
         return []
 
 class DisplayOnboardingBeats(Action):
@@ -162,5 +170,5 @@ class DisplayOnboardingBeats(Action):
             }
         ]
 
-        dispatcher.utter_custom_message(*beatsCard)
+        dispatcher.utter_elements(*beatsCard)
         return []

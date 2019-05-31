@@ -10,7 +10,7 @@ import os
 
 from flask import Blueprint, request, jsonify
 import requests
-from rasa_core.channels.facebook import Messenger as FBMessenger, MessengerBot as FBMessengerBot, FacebookInput as FBFacebookInput, UserMessage
+from rasa.core.channels.facebook import Messenger as FBMessenger, MessengerBot as FBMessengerBot, FacebookInput as FBFacebookInput, UserMessage
 
 class Messenger(FBMessenger):
     """Implement a fbmessenger to parse incoming webhooks and send msgs."""
