@@ -1,9 +1,11 @@
+language: en
+pipeline: supervised_embeddings
 policies:
-  - name: MemoizationPolicy
-    max_history: 5
-  - name: KerasPolicy
-    epochs: 200
-    max_history: 5
-  - name: FallbackPolicy
-    fallback_action_name: 'action_default_fallback'
-  - name: FormPolicy
+- max_history: 5
+  name: MemoizationPolicy
+- epochs: 200
+  max_history: 5
+  name: KerasPolicy
+- fallback_action_name: action_default_fallback
+  name: FallbackPolicy
+- name: FormPolicy

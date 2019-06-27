@@ -12,7 +12,8 @@ actions:
 - action_returnSmartphones
 - action_show_beats
 - action_show_versace
-- action_display_brands_smartphones
+- action_display_brands_devices
+- action_reset_slot
 #- action_OnboardingDemo
 
 intents:
@@ -24,6 +25,7 @@ intents:
 - viewTech
 - viewSmartphones
 - chooseSmarthphoneBrand
+- DeviceViewAction
   
 slots:
   smartphoneBrand:
@@ -31,6 +33,12 @@ slots:
   techCategory:
     type: unfeaturized
   smartwatchBrand:
+    type: unfeaturized
+  laptopBrand:
+    type: unfeaturized
+  tabletBrand:
+    type: unfeaturized
+  tvBrand:
     type: unfeaturized
 
 forms:
@@ -50,34 +58,36 @@ templates:
     - payload: "/onboardDemoBeats"
       title: "Beats 🎧"
     text: "Pick one..."
-  utter_Menu.quick_replies:
-  - text: "Menu"
-    quick_replies:
-    - content_type: "text"
-      payload: "/deals"
-      title: "Deals"
-    - content_type: "text"
-      payload: "/viewCategories"
-      title: "Categories"
-    - content_type: "text"
-      payload: "/help"
-      title: "Help"
-    - content_type: "text"
-      payload: "/subscribe"
-      title: "Subscribe"     # this still needs implementation via the Zapier Email Parser
-    - content_type: "text"
-      payload: "/feedback"
-      title: "Feedback"
+  utter_Menu:
+    - text: "Menu"
+      quick_replies:
+      - content_type: text
+        payload: "/deals"
+        title: "Deals"
+      - content_type: text
+        payload: "/viewCategories"
+        title: "Categories"
+      - content_type: text
+        payload: "/help"
+        title: "Help"
+      - content_type: text
+        payload: "/subscribe"
+        title: "Subscribe"     # this still needs implementation via the Zapier Email Parser
+      - content_type: text
+        payload: "/feedback"
+        title: "Feedback"
     
   utter_categories:
   - buttons:
     - payload: "/viewTech"
       title: "Tech"
-    - payload: "h_b"
+    - payload: "/viewHB"
       title: "Health & Beauty"
     text: "Available categories"
-  utter_ask_techCategory:
-  - buttons:
+    
+  utter_ask_techCategory:  # necessary for the form to obtain information from the user
+  - text: "A nice selection of tech categories" #needs to be in utter_ask_{slot_name} format. 
+    quick_replies:
     - payload: '/viewTech{"techCategory":"smartphones"}'
       title: "Smartphones"
     - payload: '/viewTech{"techCategory":"tablets"}'
@@ -88,9 +98,10 @@ templates:
       title: "TVs"
     - payload: '/viewTech{"techCategory":"smartwatches"}'
       title: "Smartwatches"
-    text: "A nice selection of tech categories"
+
   utter_ask_smartphoneBrand:
-  - buttons:
+  - text: "which smartphone brand"
+    quick_replies:
     - payload: '/viewSmartphones{"smartphoneBrand":"Huawei"}'
       title: "Huawei"
     - payload: '/viewSmartphones{"smartphoneBrand":"Tecno"}'
@@ -109,9 +120,78 @@ templates:
       title: "Sony"
     - payload: '/viewSmartphones{"smartphoneBrand":"Nokia"}'
       title: "Nokia"
-    text: "which brand"
-  utter_ask_category:   # necessary for the form to obtain information from the user
-    - buttons:                # needs to be in utter_ask_{slot_name} format. 
+    
+
+  utter_ask_tabletBrand:
+  - text: "which tab brand"
+    quick_replies:
+    - payload: '/viewTablets{"tabletBrand":"Apple"}'
+      title: "Apple"
+    - payload: '/viewTablets{"tabletBrand":"Samsung"}'
+      title: "Samsung"
+    - payload: '/viewTablets{"tabletBrand":"Huawei"}'
+      title: "Huawei"
+    - payload: '/viewTablets{"tabletBrand":"Lenovo"}'
+      title: "Lenovo"
+    - payload: '/viewTablets{"tabletBrand":"Amazon"}'
+      title: "Amazon"
+    
+
+  utter_ask_laptopBrand:
+  - text: "which laptop brand"
+    quick_replies:
+    - payload: '/viewLaptops{"laptopBrand":"Dell"}'
+      title: "Dell"
+    - payload: '/viewLaptops{"laptopBrand":"Apple"}'
+      title: "Apple"
+    - payload: '/viewLaptops{"laptopBrand":"Asus"}'
+      title: "Asus"
+    - payload: '/viewLaptops{"laptopBrand":"HP"}'
+      title: "HP"
+    - payload: '/viewLaptops{"laptopBrand":"Lenovo"}'
+      title: "Lenovo"
+    
+
+  utter_ask_tvBrand:
+  - text: "which tv brand"
+    quick_replies:
+    - payload: '/viewTvs{"tvBrand":"Sony"}'
+      title: "Sony"
+    - payload: '/viewTvs{"tvBrand":"Samsung"}'
+      title: "Samsung"
+    - payload: '/viewTvs{"tvBrand":"TCL"}'
+      title: "TCL"
+    - payload: '/viewTvs{"tvBrand":"LG"}'
+      title: "LG"
+    - payload: '/viewTvs{"tvBrand":"Skyworth"}'
+      title: "Skyworth"
+    - payload: '/viewTvs{"tvBrand":"Hisense"}'
+      title: "Hisense"  
+    - payload: '/viewTvs{"tvBrand":"Nasco"}'
+      title: "Nasco"
+    - payload: '/viewTvs{"tvBrand":"Haier"}'
+      title: "Haier"
+    - payload: '/viewTvs{"tvBrand":"Syinix"}'
+      title: "Syinix"
+    - payload: '/viewTvs{"tvBrand":"Vision Plus"}'
+      title: "Vision Plus"
+    
+
+  utter_ask_smartwatchBrand:
+  - text: "which smartwatch brand"
+    quick_replies:
+    - payload: '/viewSmartwatches{"smartwatchBrand":"Apple"}'
+      title: "Apple"
+    - payload: '/viewSmartwatches{"smartwatchBrand":"Huawei"}'
+      title: "Huawei"
+    - payload: '/viewSmartwatches{"smartwatchBrand":"Xiaomi"}'
+      title: "Xiaomi"
+    - payload: '/viewSmartwatches{"smartwatchBrand":"Lenovo"}'
+      title: "Lenovo"
+    
+
+  utter_ask_category:  
+    - buttons:              
       - payload: "tech"
         title: "Tech"
       - payload: "accessories"

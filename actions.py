@@ -1,12 +1,14 @@
 from rasa_sdk import Action
 from rasa_sdk.forms import FormAction
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import SlotSet, FollowupAction
 import psycopg2
 import imgscrapertest as imgscraper
 import re
 
-cat_slot_value = 0
-brand_slot_value = 0
+cat_slot_value = ""
+brand_slot_value = ""
+off = 0
+offAppend = 0
 
 """class TechCategoriesForm(FormAction):
     # This form will take   care of the user's choice of category (within Tech) and the brand as well.
@@ -61,10 +63,13 @@ class TechCatForm(FormAction):
             return ["techCategory", "smartwatchBrand"]
 
     def submit(self, dispatcher, tracker, domain):
-        global cat_slot_value 
-        cat_slot_value = tracker.get_slot('techCategory')
-        global brand_slot_value 
+        
+        global cat_slot_value
+        global brand_slot_value
+        global off
+        global offAppend
 
+        cat_slot_value = tracker.get_slot('techCategory')
         brand_dict = {"smartphones":"smartphoneBrand", "tablets":"tabletBrand", "laptops":"laptopBrand", "tvs":"tvBrand", "smartwatches":"smartwatchBrand"}
         
         tCat = ['smartphones', 'tablets', 'laptops', 'tvs', 'smartwatches']
@@ -76,53 +81,99 @@ class TechCatForm(FormAction):
                 dispatcher.utter_message("You have chosen {}".format(category))
                 dispatcher.utter_message("Brand is {}".format(brand_slot_value))
 
-    
-        return[]
+        
+        off = 0
+        offAppend = 0
+        return[FollowupAction("action_display_brands_devices")]
 
 
-class SmarthponeViewAction(Action):
+class DeviceViewAction(Action):
     def name(self):
-        return "action_display_brands_smartphones"
+        return "action_display_brands_devices"
     
     def run(self, dispatcher, tracker, domain):
 
+        global off
+        global offAppend
         con = psycopg2.connect(database="jjtestdb", user="postgres", password="hieg")
-        off = 0
+        
         with con:
 
             cur = con.cursor()
-            smartphone_cards = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+            devices_cards = []
 
             for i in range(0, 9):
-                cur.execute("SELECT * FROM smartphones WHERE brand = %s LIMIT 1 OFFSET %s", (brand_slot_value, off))
-                returned_phone = cur.fetchone()
+                execution = "SELECT * FROM "+cat_slot_value+" WHERE brand = %s LIMIT 1 OFFSET %s"
+                cur.execute(execution, (brand_slot_value, off))
+                returned_device = cur.fetchone()
                 off += 1
-                if returned_phone == None:
+                if returned_device == None:
                     break
                 regex = re.compile("\d+.")
-                lDscnt = re.findall(regex, returned_phone[4])
+                lDscnt = re.findall(regex, returned_device[4])
+                dscnt = ""
                 for j in lDscnt:
                     dscnt = j
                 if dscnt == None:
-                    dscnt = "No discount"
+                    dscnt = None
                 else:
-                    dscnt = "{} off".format(dscnt)
-                smartphone_cards[i] = {
-                        "title": returned_phone[1]+" "+returned_phone[2],
-                        "subtitle": "KSh "+returned_phone[3]+" ("+dscnt+")",
-                        "image_url": returned_phone[0],
+                    dscnt = " ({} off)".format(dscnt)
+                devices_cards.append({
+                        "title": returned_device[1]+" "+returned_device[2],
+                        "subtitle": "KSh "+returned_device[3]+dscnt,
+                        "image_url": returned_device[0],
                         "buttons": [
                             {
                                 "type":"web_url",
-                                "url": returned_phone[5],
-                                "title":"Buy",
+                                "url": returned_device[5],
+                                "title":"Shop now",
                                 "webview_height_ratio": "tall",
+                            }
+                        ]   
+                    }
+                )    
+            length_check = "SELECT * FROM "+cat_slot_value+" WHERE brand = %s LIMIT 10 OFFSET %s"
+            cur.execute(length_check, (brand_slot_value, offAppend))
+            all_products = cur.fetchall()
+            if (len(all_products) > 9):
+                devices_cards.append(
+                    {
+                        "title":"Wanna see some more?",
+                        "image_url":"https://printables.space/files/uploads/download-and-print/large-printable-numbers/plus-a4.jpg",
+                        "buttons": [
+                            {
+                                "type":"postback",
+                                "title":"Sure!",
+                                "payload":"/DeviceViewAction",
+                            },
+                            {
+                                "type":"postback",
+                                "title":"Nah, thanks.",
+                                "payload":"/viewMenu",
                             }
                         ]
                     }
-            dispatcher.utter_elements(*smartphone_cards)
-                # dispatcher.utter_message("{}, it works!!".format(returned_phone))
-        return[]
+                )
+            else:
+                devices_cards.append(
+                    {
+                        "title":"That's it.",
+                        "image_url":"https://cdn1.iconfinder.com/data/icons/robot-emoji-line-faces/32/robot_emoji_sad-512.png",
+                        "buttons": [
+                            {
+                                "type":"postback",
+                                "title":"Menu",
+                                "payload":"/viewMenu",
+                            }
+                        ]
+                    }
+                )
+            dispatcher.utter_elements(*devices_cards)
+                # dispatcher.utter_message("{}, it works!!".format(returned_device))
+        #off = off + 1
+        offAppend = offAppend + 9
+        return[SlotSet("techCategory", None), SlotSet("smartphoneBrand", None), SlotSet("smartwatchBrand", None), SlotSet("tabletBrand", None), SlotSet("laptopBrand", None), SlotSet("tvBrand", None)]
+        #return[]
 
 
 class DisplayOnboardingVersace(Action):
@@ -172,3 +223,11 @@ class DisplayOnboardingBeats(Action):
 
         dispatcher.utter_elements(*beatsCard)
         return []
+
+class ResetSlot(Action):
+
+    def name(self):
+        return "action_reset_slot"
+
+    def run(self, dispatcher, tracker, domain):
+        return [SlotSet(brand_slot_value, None), SlotSet(cat_slot_value, None)]
