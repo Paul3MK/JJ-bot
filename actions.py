@@ -112,7 +112,7 @@ class DeviceViewAction(Action):
                 off += 1
                 if returned_device == None:
                     break
-                regex = re.compile("\d+.")
+                regex = re.compile(r"\d+.")
                 lDscnt = re.findall(regex, returned_device[4])
                 dscnt = ""
                 for j in lDscnt:
