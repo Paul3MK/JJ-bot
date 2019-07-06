@@ -4,6 +4,7 @@ from rasa_sdk.events import SlotSet, FollowupAction
 import psycopg2
 import imgscrapertest as imgscraper
 import re
+import os
 
 cat_slot_value = ""
 brand_slot_value = ""
@@ -95,8 +96,10 @@ class DeviceViewAction(Action):
 
         global off
         global offAppend
-        con = psycopg2.connect(database="jjtestdb", user="postgres", password="hieg")
-        
+        DATABASE_URL = os.environ['DATABASE_URL']
+        # con = psycopg2.connect(database="jjtestdb", user="postgres", password="hieg") #for local work
+        con =  psycopg2.connect(DATABASE_URL, sslmode='require')
+
         with con:
 
             cur = con.cursor()
