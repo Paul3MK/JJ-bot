@@ -23,4 +23,4 @@ def runIt(port):
 
 # if __name__ == "__main__":
 assigned_port = int(os.environ.get("PORT", 5000)) #port assigned by  Heroku
-runIt(5001)
+runIt(assigned_port)
