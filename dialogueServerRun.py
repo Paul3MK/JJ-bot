@@ -5,24 +5,24 @@ from rasa.core.agent import Agent
 from rasa.core.interpreter import RegexInterpreter
 from rasa.model import get_model
 from rasa.core.channels.facebook import FacebookInput
+from rasa.core.policies.memoization import MemoizationPolicy
+from rasa.core.policies.keras_policy import KerasPolicy
+from rasa.core.policies.form_policy import FormPolicy
 #from rasa.cli.run import run_actions
 from rasa.run import run as runB
 import subprocess
+import asyncio
+import dbconn
 
 def runIt(port):  
     logging.basicConfig(level=logging.DEBUG)
-    
-    unpacked_model = get_model("models")
     port_value = int(port)
-    runB(model="models", endpoints="endpoints.yml", credentials="credentials.yml", port=port_value)
-    agent = Agent.load(unpacked_model, interpreter=RegexInterpreter())
-
-    input_channel = FacebookInput(fb_verify="JJbot", fb_secret="ec21c7ab5f81ea576a043ce42da28846", fb_page_access_token="EAAWtJ6GdnowBAAQvgHd9BHPRmqvzBfUPW1UadXuUXhofveak7BvFrpXn1VGXZACYVT0X4nkarxGQ1k0CxZB4YZA4zb3ywZBqeKj0t8e4hsyUrp4DRnAA5m5inThmRThN8uJqKBDvyssu05p9tuDRZBDxEPc8h0LNZAUxXSmJKXggZDZD")
-    agent.handle_channels([input_channel], port_value, serve_forever=True)
-
-    
+    runB(model="models/dialogue", endpoints="endpoints.yml", credentials="credentials.yml", port=port_value)
 
 # if __name__ == "__main__":
+subprocess.Popen(["python", "botTrain.py"]) # here we're launching the training script and moving on without waiting for it to complete
+dbconn.DatabaseProvisioning() # and we provision the database. Training should finish before DB provisioning
+
 assigned_port = int(os.environ.get("PORT", 5000)) #port assigned by  Heroku
-subprocess.Popen(["python", "actionServerRun.py"])
+subprocess.Popen(["python", "actionServerRun.py"]) #here we're launching the action server and moving on; necessary otherwise Python would hang after this command, as it would wait for the server to stop before continuing
 runIt(assigned_port)
