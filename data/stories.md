@@ -5,7 +5,8 @@
     - utter_demo
     - utter_demoOptions
 * onboardDemoVersace
-    - action_show_versace  
+    - action_show_versace
+    - utter_Menu
 
 ## onboarding 2
 * getStarted
@@ -14,7 +15,8 @@
     - utter_demo
     - utter_demoOptions
 * onboardDemoBeats
-    - action_show_beats 
+    - action_show_beats
+    - utter_Menu
 
 ## mainMenu
 * viewMenu
