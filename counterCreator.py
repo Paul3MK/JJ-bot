@@ -11,8 +11,6 @@ with con:
     cur.execute("DROP TABLE IF EXISTS trained_counter")
     cur.execute("CREATE TABLE trained_counter(counter CHAR(1))")
     cur.execute("INSERT INTO trained_counter VALUES(0)")
-    # cur.execute("SELECT * FROM trained_counter")
-    # count = str(cur.fetchall())
     
     # if '0' in count:
     #     print("success")
