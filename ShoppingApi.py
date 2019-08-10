@@ -128,7 +128,8 @@ def storeJumia(url):
 	fetched_items=requests.get(url)
 	if fetched_items.status_code!=200:
 		
-		raise ErrorGettingPage
+		print("Error getting page.")
+		pass
 	try:
 		soup=BeautifulSoup(fetched_items.text,"lxml")
 		item_list=soup.find_all(attrs={"class":"sku -gallery"})
@@ -153,7 +154,8 @@ def storeKilimall(url):
 	"""Takes a url of a page from kilimall and return a list a containing tuples of all items in that page"""
 	fetched_items=requests.get(url)
 	if fetched_items.status_code!=200:
-		raise ErrorGettingPage
+		print("Error getting page.")
+		pass
 	try:
 		soup=BeautifulSoup(fetched_items.text,"lxml")
 		item_list=soup.find("ul",attrs={"class":"list_pic"}).find_all("li",attrs={"class":"item"})
