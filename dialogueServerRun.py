@@ -1,7 +1,6 @@
 import os
 import logging
 import subprocess
-import subprocess
 import dbconn
 import schedule
 from rasa.run import run as runB
