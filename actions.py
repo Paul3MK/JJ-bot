@@ -192,9 +192,10 @@ class DisplayOnboardingVersace(Action):
                 "image_url": "https://ke.jumia.is/YsNpaoCY8BZkWdZ0_HAZeeUGYws=/fit-in/500x500/filters:fill(white):sharpen(1,0,false):quality(100)/product/43/5375/1.jpg?1323",
                 "buttons" : [
                     {
-                        "type": "postback",
+                        "type": "web",
                         "title": "Buy",
-                        "payload": '/action_show_menu'
+                        "url":"https://www.jumia.co.ke/versace-bright-crystal-for-women-edt-90-ml-573534.html"
+                        "webview_height_ratio": "tall"
                     }
                 ]
             }
@@ -216,9 +217,10 @@ class DisplayOnboardingBeats(Action):
                 "image_url": "https://ke.jumia.is/FZcjHsJvmR7tQBijpFq-Jmov4jI=/fit-in/500x500/filters:fill(white):sharpen(1,0,false):quality(100)/product/52/157001/1.jpg?0416",
                 "buttons" : [
                     {
-                        "type": "postback",
+                        "type": "web",
                         "title": "Buy",
-                        "payload": '/action_show_menu'
+                        "url": "https://www.jumia.co.ke/beats-solo2-wired-over-ear-headphone-on-ear-stereo-music-headset-anc-noise-reduction-earphone-white-second-hand-no-package-no-accessories-10075125.html"
+                        "webview_height_ratio": "tall"
                     }
                 ]
             }
