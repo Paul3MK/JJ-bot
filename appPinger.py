@@ -28,7 +28,7 @@ while True: # this while block constantly checks what the time is, in order to k
     if is_time_between(time(1,00), time(7,30)): # 6:30 of sleep is better 
         pass
     else:
-        #urllib.request.urlopen("https://jjbot-test.herokuapp.com/")
+        urllib.request.urlopen("https://jjbot-test.herokuapp.com/")
         print("pinged your app")
         uniqueTime.sleep(810)
     uniqueTime.sleep(60)
