@@ -219,7 +219,7 @@ class DisplayOnboardingBeats(Action):
                     {
                         "type": "web",
                         "title": "Buy",
-                        "url": "https://www.jumia.co.ke/beats-solo2-wired-over-ear-headphone-on-ear-stereo-music-headset-anc-noise-reduction-earphone-white-second-hand-no-package-no-accessories-10075125.html"
+                        "url": "https://www.jumia.co.ke/beats-solo2-wired-over-ear-headphone-on-ear-stereo-music-headset-anc-noise-reduction-earphone-white-second-hand-no-package-no-accessories-10075125.html",
                         "webview_height_ratio": "tall"
                     }
                 ]
