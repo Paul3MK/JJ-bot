@@ -16,12 +16,18 @@ def botTrain():
     # training the core model
     train_core("domain.yml", "config.yml", "data/stories.md", "models/dialogue", fixed_model_name="core")
 
-botTrain()
-
-DATABASE_URL = os.environ['DATABASE_URL']
-# con = psycopg2.connect(database="jjtestdb", user="postgres", password="hieg") #for local work
-con =  psycopg2.connect(DATABASE_URL, sslmode='require')
-with con:
     
-    cur = con.cursor()
-    cur.execute("INSERT INTO trained_counter VALUES(1)")    
+def botTrainingCounterTable():
+    DATABASE_URL = os.environ['DATABASE_URL']
+    # con = psycopg2.connect(database="jjtestdb", user="postgres", password="hieg") #for local work
+    con =  psycopg2.connect(DATABASE_URL, sslmode='require')
+    with con:
+        
+        cur = con.cursor()
+        cur.execute("INSERT INTO trained_counter VALUES(1)")    
+
+def main():
+    botTrain()
+    botTrainingCounterTable()
+
+main()

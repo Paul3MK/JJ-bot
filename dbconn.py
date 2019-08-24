@@ -44,6 +44,7 @@ def DatabaseProvisioning():
 						executionInsert = "INSERT INTO "+device_cat_list[j]+"(img_url, brand, name, price, discount, link) VALUES(%(url)s, %(br)s, %(nm)s, %(prc)s, %(dnt)s, %(lnk)s)"
 						cur.execute(executionInsert, ({"url":i[0], "br":i[1], "nm":i[2], "prc":i[3], "dnt":i[4], "lnk":i[5]}))
 			j = j + 1
+	return(print("DB successfully provisioned"))
 
 DatabaseProvisioning()
 

@@ -194,7 +194,7 @@ class DisplayOnboardingVersace(Action):
                     {
                         "type": "web",
                         "title": "Buy",
-                        "url":"https://www.jumia.co.ke/versace-bright-crystal-for-women-edt-90-ml-573534.html"
+                        "url":"https://www.jumia.co.ke/versace-bright-crystal-for-women-edt-90-ml-573534.html",
                         "webview_height_ratio": "tall"
                     }
                 ]

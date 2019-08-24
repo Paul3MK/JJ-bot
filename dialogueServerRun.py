@@ -2,6 +2,7 @@ import os
 import logging
 import subprocess
 import dbconn
+import botTrain
 import schedule
 from rasa.run import run as runB
 import psycopg2
@@ -11,6 +12,7 @@ def runIt(port):
     logging.basicConfig(level=logging.DEBUG)
     port_value = int(port)
     runB(model="models/dialogue", endpoints="endpoints.yml", credentials="credentials.yml", port=port_value)
+    return(print("Up and running on port {}".format(port_value)))
 
 # if __name__ == "__main__":
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -23,8 +25,8 @@ with con:
     count = str(cur.fetchall())
     
     if '0' in count:
-        subprocess.Popen(["python", "botTrain.py"]) # here we're launching the training script and moving on without waiting for it to complete
-        dbconn.DatabaseProvisioning() # and we provision the database. Training should finish before DB provisioning        
+        subprocess.Popen(["python", "dbconn.py"])
+        botTrain.main()
     elif '1' in count:
         pass
 
