@@ -27,12 +27,12 @@ with con:
     
     if '0' in count:
         subprocess.Popen(["python", "dbconn.py"])
-        urllib.request.urlopen("https://jjbot-test.herokuapp.com/")
+        urllib.request.urlopen("https://google.co.uk/")
         botTrain.main()
     elif '1' in count:
         pass
 
-urllib.request.urlopen("https://jjbot-test.herokuapp.com/")
+urllib.request.urlopen("https://google.co.uk/")
 subprocess.Popen(["python", "appPinger.py"])
 assigned_port = int(os.environ.get("PORT", 5000)) #port assigned by  Heroku
 subprocess.Popen(["python", "actionServerRun.py"]) #here we're launching the action server and moving on; necessary otherwise Python would hang after this command, as it would wait for the server to stop before continuing
