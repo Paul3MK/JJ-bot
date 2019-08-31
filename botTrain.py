@@ -19,7 +19,7 @@ def botTrain():
     
 def botTrainingCounterTable():
     DATABASE_URL = os.environ['DATABASE_URL']
-    # con = psycopg2.connect(database="jjtestdb", user="postgres", password="hieg") #for local work
+    #con = psycopg2.connect(database="jjtestdb", user="postgres", password="hieg") #for local work
     con =  psycopg2.connect(DATABASE_URL, sslmode='require')
     with con:
         
@@ -30,4 +30,5 @@ def main():
     botTrain()
     botTrainingCounterTable()
 
-main()
+if __name__ == "__main__": # python modules run when they are imported; the code in this block will not be run when imported
+        main()

@@ -33,7 +33,6 @@ def DatabaseProvisioning():
 			cur.execute(executionDrop)
 			executionCreate = "CREATE TABLE "+cat+"(img_url TEXT, brand TEXT, name TEXT, price TEXT, discount TEXT, link TEXT)"
 			cur.execute(executionCreate)
-			fields = ("img_url", "brand", "name", "price", "discount", "link")
 		for device in device_list:	
 			for link in device:
 				device_page = sapi.storeJumia(link)
@@ -46,10 +45,5 @@ def DatabaseProvisioning():
 			j = j + 1
 	return(print("DB successfully provisioned"))
 
-DatabaseProvisioning()
-
-		
-		
-
-
-
+if __name__ == "__main__": # python modules run when they are imported; the code in this block will not be run when imported
+	DatabaseProvisioning()
