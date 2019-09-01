@@ -1,1 +1,1 @@
-web: python -m dialogueServerRun
+web: python -m botMaster
