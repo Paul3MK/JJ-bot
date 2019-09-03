@@ -28,14 +28,15 @@ def is_time_between(begin_time, end_time, check_time=None):
         return check_time >= begin_time or check_time <= end_time
     # returns True or False
 
-while True: # this while block constantly checks what the time is, in order to keep pinging the app or not. Required because due to quotas, I only want 18 hours of app uptime per day (540 hours per month, as the limit is 550 hours/mo)
-    if is_time_between(time(1,00), time(7,30)): # 6:30 of sleep is better 
-        pass
-    elif is_time_between(time(7,30), time(7,35)):
-        app.restart() # the bot is woken up at 7:30, by this code via the Platform API, which 'restarts' it
-    else:
-        urllib.request.urlopen("https://jjbot-test.herokuapp.com/")
-        print("pinged your app")
-        uniqueTime.sleep(810)
-    uniqueTime.sleep(60)
+if __name__ == "__main__":
+    while True: # this while block constantly checks what the time is, in order to keep pinging the app or not. Required because due to quotas, I only want 18 hours of app uptime per day (540 hours per month, as the limit is 550 hours/mo)
+        if is_time_between(time(1,00), time(7,30)): # 6:30 of sleep is better 
+            pass
+        elif is_time_between(time(7,30), time(7,35)):
+            app.restart() # the bot is woken up at 7:30, by this code via the Platform API, which 'restarts' it
+        else:
+            urllib.request.urlopen("https://jjbot-test.herokuapp.com/")
+            print("pinged your app")
+            uniqueTime.sleep(810)
+        uniqueTime.sleep(60)
     
