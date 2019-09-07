@@ -54,9 +54,13 @@ while True:
         print("Exit.")
         sys.exit(0)
         print("This should never get printed.")
-    elif appPinger.is_time_between(time(6,00), time(6,5)):
-        main(1) # because the if block in the main function checks whether a parameter exists, this will trigger it
-    elif appPinger.is_time_between(time(6,5), time(8,00)):
+    elif appPinger.is_time_between(time(6,00), time(7,00)):
+        if main.has_been_called:
+            sys.exit(0)
+        else:
+            main.has_been_called = True
+            main(1) # because the if block in the main function checks whether a parameter exists, this will trigger it
+    elif appPinger.is_time_between(time(7,00), time(8,00)):
         sys.exit(0)
         print("This should not get printed either.")
     else:
