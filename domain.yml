@@ -11,6 +11,7 @@ actions:
 - action_show_versace
 - action_display_brands_devices
 - action_reset_slot
+- action_view_promos
 #- action_OnboardingDemo
 
 intents:
@@ -20,10 +21,12 @@ intents:
 - viewMenu
 - viewCategories
 - viewTech
+- viewHardware
 - viewSmartphones
 - chooseSmarthphoneBrand
 - DeviceViewAction
-  
+- viewPromos
+
 slots:
   smartphoneBrand:
     type: unfeaturized
@@ -37,9 +40,24 @@ slots:
     type: unfeaturized
   tvBrand:
     type: unfeaturized
+  hardwareCategory:
+    type: unfeaturized
+  power_bankBrand:
+    type: unfeaturized  
+  chargerBrand:
+    type: unfeaturized
+  headphoneBrand:
+    type: unfeaturized
+  memory_cardBrand:
+    type: unfeaturized
+  mouseBrand:
+    type: unfeaturized
+  keyboardBrand:
+    type: unfeaturized
 
 forms:
   - tech_form
+  - hardware_form
 
 templates:
   utter_greet:
@@ -56,32 +74,29 @@ templates:
       title: "Beats 🎧"
     text: "Pick one..."
   utter_Menu:
-    - text: "Menu"
-      quick_replies:
-      - content_type: text
-        payload: "/deals"
-        title: "Deals"
-      - content_type: text
-        payload: "/viewCategories"
-        title: "Categories"
-      - content_type: text
-        payload: "/help"
-        title: "Help"
-      - content_type: text
-        payload: "/subscribe"
-        title: "Subscribe"     # this still needs implementation via the Zapier Email Parser
-      - content_type: text
-        payload: "/feedback"
-        title: "Feedback"
-    
+  - text: "Menu"
+    quick_replies:
+    - content_type: text
+      payload: "/viewPromos"
+      title: "Promos"
+    - content_type: text
+      payload: "/viewCategories"
+      title: "Categories"
+    - content_type: text
+      payload: "/help"
+      title: "Help"
+    - content_type: text
+      payload: "/feedback"
+      title: "Feedback"
   utter_categories:
-  - buttons:
+  - text: "Available categories"
+    quick_replies:
     - payload: "/viewTech"
-      title: "Tech"
+      title: "Tech - Devices"
     - payload: "/viewHB"
       title: "Health & Beauty"
-    text: "Available categories"
-    
+    - payload: "/viewHardware"
+      title: "Tech - Hardware"
   utter_ask_techCategory:  # necessary for the form to obtain information from the user
   - text: "A nice selection of tech categories" #needs to be in utter_ask_{slot_name} format. 
     quick_replies:
@@ -95,7 +110,6 @@ templates:
       title: "TVs"
     - payload: '/viewTech{"techCategory":"smartwatches"}'
       title: "Smartwatches"
-
   utter_ask_smartphoneBrand:
   - text: "which smartphone brand"
     quick_replies:
@@ -117,8 +131,6 @@ templates:
       title: "Sony"
     - payload: '/viewSmartphones{"smartphoneBrand":"Nokia"}'
       title: "Nokia"
-    
-
   utter_ask_tabletBrand:
   - text: "which tab brand"
     quick_replies:
@@ -132,8 +144,6 @@ templates:
       title: "Lenovo"
     - payload: '/viewTablets{"tabletBrand":"Amazon"}'
       title: "Amazon"
-    
-
   utter_ask_laptopBrand:
   - text: "which laptop brand"
     quick_replies:
@@ -147,8 +157,6 @@ templates:
       title: "HP"
     - payload: '/viewLaptops{"laptopBrand":"Lenovo"}'
       title: "Lenovo"
-    
-
   utter_ask_tvBrand:
   - text: "which tv brand"
     quick_replies:
@@ -172,8 +180,6 @@ templates:
       title: "Syinix"
     - payload: '/viewTvs{"tvBrand":"Vision Plus"}'
       title: "Vision Plus"
-    
-
   utter_ask_smartwatchBrand:
   - text: "which smartwatch brand"
     quick_replies:
@@ -185,14 +191,94 @@ templates:
       title: "Xiaomi"
     - payload: '/viewSmartwatches{"smartwatchBrand":"Lenovo"}'
       title: "Lenovo"
-    
-
-  utter_ask_category:  
-    - buttons:              
-      - payload: "tech"
-        title: "Tech"
-      - payload: "accessories"
-        title: "Accessories"
-      - payload: "h&b"
-        title: "Health & Beauty"
-      text: "tech cat"
+  utter_ask_hardwareCategory:
+  - text: "Check out some tech hardware 😉" #needs to be in utter_ask_{slot_name} format. 
+    quick_replies:
+    - payload: '/viewHardware{"hardwareCategory":"power_banks"}'
+      title: "Power banks"
+    - payload: '/viewHardware{"hardwareCategory":"chargers"}'
+      title: "Chargers"
+    - payload: '/viewHardware{"hardwareCategory":"headphones"}'
+      title: "Headphones"
+    - payload: '/viewHardware{"hardwareCategory":"memory_cards"}'
+      title: "Memory cards"
+    - payload: '/viewHardware{"hardwareCategory":"mice"}'
+      title: "Mice"
+    - payload: '/viewHardware{"hardwareCategory":"keyboards"}'
+      title: "Keyboards"
+  utter_ask_power_bankBrand:
+  - text: "Pick a brand:"
+    quick_replies:
+    - payload: '/viewPower_banks{"power_bankBrand":"Anker"}'
+      title: "Anker"
+    - payload: '/viewPower_banks{"power_bankBrand":"Oraimo"}'
+      title: "Oraimo"
+  utter_ask_chargerBrand:
+  - text: "Pick a brand:"
+    quick_replies:
+    - payload: '/viewChargers{"chargerBrand":"Infinix"}'
+      title: "Infinix"
+    - payload: '/viewChargers{"chargerBrand":"Apple"}'
+      title: "Apple"
+    - payload: '/viewChargers{"chargerBrand":"Samsung"}'
+      title: "Samsung"
+  utter_ask_headphoneBrand:
+  - text: "Pick a brand:"
+    quick_replies:
+    - payload: '/viewHeadphones{"headphoneBrand":"Jbl"}'
+      title: "JBL"
+    - payload: '/viewHeadphones{"headphoneBrand":"Beats"}'
+      title: "Beats"
+    - payload: '/viewHeadphones{"headphoneBrand":"Sony"}'
+      title: "Sony"
+    - payload: '/viewHeadphones{"headphoneBrand":"Philips"}'
+      title: "Philips"
+    - payload: '/viewHeadphones{"headphoneBrand":"Pace"}'
+      title: "Pace"
+  utter_ask_memory_cardBrand:
+  - text: "Pick a brand:"
+    quick_replies:
+    - payload: '/viewMemory_cards{"memory_cardBrand":"Sandisk"}'
+      title: "Sandisk"
+    - payload: '/viewMemory_cards{"memory_cardBrand":"Samsung"}'
+      title: "Samsung"
+    - payload: '/viewMemory_cards{"memory_cardBrand":"Toshiba"}'
+      title: "Toshiba"
+    - payload: '/viewMemory_cards{"memory_cardBrand":"Advance"}'
+      title: "Advance"
+    - payload: '/viewMemory_cards{"memory_cardBrand":"Transcend"}'
+      title: "Transcend"
+    - payload: '/viewMemory_cards{"memory_cardBrand":"Oraimo"}'
+      title: "Oraimo"
+  utter_ask_mouseBrand:
+  - text: "Pick a brand:"
+    quick_replies:
+    - payload: '/viewMice{"mouseBrand":"Logitech"}'
+      title: "Logitech"
+    - payload: '/viewMice{"mouseBrand":"HP"}'
+      title: "HP"
+    - payload: '/viewMice{"mouseBrand":"Razer"}'
+      title: "Razer"
+    - payload: '/viewMice{"mouseBrand":"Dell"}'
+      title: "Dell"
+    - payload: '/viewMice{"mouseBrand":"Asus"}'
+      title: "Asus"
+    - payload: '/viewMice{"mouseBrand":"Kingston"}'
+      title: "Kingston"
+    - payload: '/viewMice{"mouseBrand":"Cooler Master"}'
+      title: "Cooler Master"
+    - payload: '/viewMice{"mouseBrand":"Lenovo"}'
+      title: "Lenovo"
+    - payload: '/viewMice{"mouseBrand":"Benq"}'
+      title: "Benq"
+    - payload: '/viewMice{"mouseBrand":"Apple"}'
+      title: "Apple"
+  utter_ask_keyboardBrand:
+  - text: "Pick a brand:"
+    quick_replies:
+    - payload: '/viewKeyboards{"keyboardBrand":"Logitech"}'
+      title: "Logitech"
+    - payload: '/viewKeyboards{"keyboardBrand":"Apple"}'
+      title: "HP"
+    - payload: '/viewKeyboards{"keyboardBrand":"Razer"}'
+      title: "Razer"

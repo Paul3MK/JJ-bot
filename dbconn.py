@@ -13,8 +13,19 @@ def DatabaseProvisioning():
 	tvs = ["https://www.jumia.co.ke/televisions/sony/", "https://www.jumia.co.ke/televisions/samsung/", "https://www.jumia.co.ke/televisions/tcl/", "https://www.jumia.co.ke/televisions/lg/", "https://www.jumia.co.ke/televisions/skyworth/", "https://www.jumia.co.ke/televisions/hisense/", "https://www.jumia.co.ke/televisions/nasco/", "https://www.jumia.co.ke/televisions/haier--mooka", "https://www.jumia.co.ke/televisions/syinix/", "https://www.jumia.co.ke/televisions/vision-plus/"]
 	smartwatches = ["https://www.jumia.co.ke/smart-watches/apple", "https://www.jumia.co.ke/smart-watches/huawei", "https://www.jumia.co.ke/smart-watches/mi", "https://www.jumia.co.ke/smart-watches/lenovo"]
 
-	device_list = [smartphones, tablets, laptops, tvs, smartwatches]
-	device_cat_list = ["smartphones", "tablets", "laptops", "tvs", "smartwatches"]
+	power_banks = ["https://www.jumia.co.ke/mobile-phone-accessories-power-banks/anker/", "https://www.jumia.co.ke/mobile-phone-accessories-power-banks/oraimo/"]
+	chargers = ["https://www.jumia.co.ke/mobile-phone-adapters/infinix/", "https://www.jumia.co.ke/mobile-phone-adapters/apple/", "https://www.jumia.co.ke/mobile-phone-adapters/samsung/"]
+	headphones = ["https://www.jumia.co.ke/electronics-headphone/jbl/", "https://www.jumia.co.ke/electronics-headphone/brand-sennheiser--sony--plantronics--philips--logitech/", "https://www.jumia.co.ke/electronics-headphone/beats/", "https://www.jumia.co.ke/electronics-headphone/pace/"]
+	memory_cards = ["https://www.jumia.co.ke/computer-memory-cards/sandisk/", "https://www.jumia.co.ke/computer-memory-cards/sandisk/?page=2", "https://www.jumia.co.ke/computer-memory-cards/samsung/", "https://www.jumia.co.ke/computer-memory-cards/toshiba/", "https://www.jumia.co.ke/computer-memory-cards/advance/", "https://www.jumia.co.ke/computer-memory-cards/transcend/", "https://www.jumia.co.ke/computer-memory-cards/oraimo/"]
+	mice = ["https://www.jumia.co.ke/mouse/logitech/", "https://www.jumia.co.ke/mouse/hp/", "https://www.jumia.co.ke/mouse/-razer/", "https://www.jumia.co.ke/mouse/dell/", "https://www.jumia.co.ke/mouse/brand-asus/", "https://www.jumia.co.ke/mouse/kingston/", "https://www.jumia.co.ke/mouse/cooler-master/", "https://www.jumia.co.ke/mouse/lenovo/", "https://www.jumia.co.ke/mouse/benq/", "https://www.jumia.co.ke/mouse/apple/"]
+	keyboards = ["https://www.jumia.co.ke/computer-keyboards/logitech/", "https://www.jumia.co.ke/computer-keyboards/-razer--apple/"]
+	# TODO: Write a script to remove the crappy products that have been scraped, from the database
+	
+
+
+
+	device_list = [smartphones, tablets, laptops, tvs, smartwatches, power_banks, chargers, headphones, memory_cards, mice, keyboards]
+	device_cat_list = ["smartphones", "tablets", "laptops", "tvs", "smartwatches", "power_banks", "chargers", "headphones", "memory_cards", "mice", "keyboards"]
 
 	#con = psycopg2.connect(database="jjtestdb", user="postgres", password="hieg") #for local work
 

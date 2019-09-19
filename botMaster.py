@@ -69,3 +69,5 @@ while True:
         else:
             main()
     uniqueTime.sleep(60)
+
+main()

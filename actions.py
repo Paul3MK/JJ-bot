@@ -88,6 +88,48 @@ class TechCatForm(FormAction):
         return[FollowupAction("action_display_brands_devices")]
 
 
+class HardwareCatForm(FormAction):
+
+    def name(self):
+        return "hardware_form"
+
+    @staticmethod
+    def required_slots(tracker):
+
+        if tracker.get_slot('hardwareCategory') == 'power_banks':
+            return ["hardwareCategory", "power_bankBrand"]
+        elif tracker.get_slot('hardwareCategory') == 'chargers':
+            return ["hardwareCategory", "chargerBrand"]
+        elif tracker.get_slot('hardwareCategory') == 'headphones':
+            return ["hardwareCategory", "headphoneBrand"]
+        elif tracker.get_slot('hardwareCategory') == 'memory_cards':
+            return ["hardwareCategory", "memory_cardBrand"]
+        elif tracker.get_slot('hardwareCategory') == 'mice':
+            return ["hardwareCategory", "mouseBrand"]
+        else:
+            return ["hardwareCategory", "keyboardBrand"]
+
+    def submit(self, dispatcher, tracker, domain):
+
+        global cat_slot_value
+        global brand_slot_value
+
+        cat_slot_value = tracker.get_slot('hardwareCategory')
+        acc_brand_dict = {"power_banks":"power_bankBrand", "chargers":"chargerBrand", "headphones":"headphoneBrand", "memory_cards":"memory_cardBrand", "mice":"mouseBrand", "keyboards":"keyboardBrand"}
+
+        aCat = ["power_banks", "chargers", "headphones", "memory_cards", "mice", "keyboards"]
+
+        for category in aCat:
+            if (cat_slot_value == category):
+
+                brand_slot_value = tracker.get_slot(acc_brand_dict[category])
+                dispatcher.utter_message("Here are {} from {}".format(category, brand_slot_value))
+
+        return[FollowupAction("action_display_brands_devices")]      
+
+
+
+
 class DeviceViewAction(Action):
     def name(self):
         return "action_display_brands_devices"
@@ -193,8 +235,8 @@ class DisplayOnboardingVersace(Action):
                 "buttons" : [
                     {
                         "type": "web_url",
-                        "title": "Buy",
-                        "url":"https://www.jumia.co.ke/versace-bright-crystal-for-women-edt-90-ml-573534.html",
+                        "title": "Shop now",
+                        "url":"https://c.jumia.io/?a=146734&c=9&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3A%2F%2Fwww.jumia.co.ke%2Fversace-bright-crystal-for-women-edt-90-ml-573534.html&utm_campaign=146734",
                         "webview_height_ratio": "tall"
                     }
                 ]
@@ -212,14 +254,14 @@ class DisplayOnboardingBeats(Action):
     def run(self, dispatcher, tracker, domain):
         beatsCard = [
             {
-                "title": "beats Solo2 Wired Over-Ear Headphone On-Ear Stereo Music Headset ANC Noise Reduction Earphone White Second-hand No Package No Accessories",
-                "subtitle": "beats solo2 wired",
-                "image_url": "https://ke.jumia.is/FZcjHsJvmR7tQBijpFq-Jmov4jI=/fit-in/500x500/filters:fill(white):sharpen(1,0,false):quality(100)/product/52/157001/1.jpg?0416",
+                "title": "Beats Beats Studio Headphones Remastered - Blue",
+                "subtitle": "KSh 32,995",
+                "image_url": "https://ke.jumia.is/KA6JlF4QE1ZWkgQ5Z3qnV9_W1WA=/fit-in/680x680/filters:fill(white):sharpen(1,0,false):quality(100)/product/16/984/3.jpg?4007",
                 "buttons" : [
                     {
                         "type": "web_url",
-                        "title": "Buy",
-                        "url": "https://www.jumia.co.ke/beats-solo2-wired-over-ear-headphone-on-ear-stereo-music-headset-anc-noise-reduction-earphone-white-second-hand-no-package-no-accessories-10075125.html",
+                        "title": "Shop",
+                        "url": "https://c.jumia.io/?a=146734&c=9&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3A%2F%2Fwww.jumia.co.ke%2Fbeats-studio-headphones-remastered-blue-beats-by-dre-mpg106045.html&utm_campaign=146734",
                         "webview_height_ratio": "tall"
                     }
                 ]
@@ -227,6 +269,82 @@ class DisplayOnboardingBeats(Action):
         ]
 
         dispatcher.utter_elements(*beatsCard)
+        return []
+
+class ViewPromos(Action):
+    def name(self):
+        return "action_view_promos"
+
+    def run(self, dispatcher, tracker, domain):
+        promo_elements = [
+            {
+                "title": "Jumia Mall",
+                "subtitle": "September 16th Launch",
+                "image_url": "https://ke.jumia.is/cms/2019/W38/KE_Mall_W36_HP_Slidernew.jpg",
+                "default_action": {
+                    "type": "web_url",
+                    "url": "https://c.jumia.io/?a=146734&c=1624&p=r&E=kkYNyk2M4sk%3D&utm_campaign=146734&utm_term=",
+                    "webview_height_ratio": "tall"
+                },
+                "buttons": [
+                    {
+                        "type": "web_url",
+                        "title": "Go to page",
+                        "url": "https://c.jumia.io/?a=146734&c=1624&p=r&E=kkYNyk2M4sk%3D&utm_campaign=146734&utm_term=",
+                        "webview_height_ratio": "full"
+                    }
+                ]
+            },
+            {
+                "title": "FIFA 20",
+                "subtitle": "Pre-order",
+                "image_url": "https://ke.jumia.is/cms/2019/W37/KE_W37_FiFa_S_Pre-order_D.jpg",
+                "default_action": {
+                    "type": "web_url",
+                    "url": "https://c.jumia.io/?a=146734&c=1640&p=r&E=kkYNyk2M4sk%3D&utm_campaign=146734&utm_term=",
+                    "webview_height_ratio": "tall"
+                },
+                "buttons": [
+                    {
+                        "type": "web_url",
+                        "url": "https://c.jumia.io/?a=146734&c=1640&p=r&E=kkYNyk2M4sk%3D&utm_campaign=146734&utm_term=",
+                        "title": "Go to page",
+                        "webview_height_ratio": "full"
+                    }
+                ]
+            },
+            {
+                "title": "Carrefour",
+                "subtitle": "Groceries",
+                "image_url": "https://ke.jumia.is/cms/2019/W37/corrections/Carrefour-Groceries_WK37_DBanner.jpg",
+                "default_action": {
+                    "type": "web_url",
+                    "url": "https://c.jumia.io/?a=146734&c=9&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3A%2F%2Fwww.jumia.co.ke%2Fcarrefour%2F%3Fsource%3DHP_DoubleBanner_W37&utm_campaign=146734",
+                    "webview_height_ratio": "tall"
+                },
+                "buttons": [
+                    {
+                        "type": "web_url",
+                        "url": "https://c.jumia.io/?a=146734&c=9&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3A%2F%2Fwww.jumia.co.ke%2Fcarrefour%2F%3Fsource%3DHP_DoubleBanner_W37&utm_campaign=146734",
+                        "title": "Go to page",
+                        "webview_height_ratio": "full"
+                    }
+                ]
+            }
+            # {
+            #     "title":"That's it.",
+            #     "image_url":"https://cdn1.iconfinder.com/data/icons/robot-emoji-line-faces/32/robot_emoji_sad-512.png",
+            #     "buttons": [
+            #         {
+            #             "type":"postback",
+            #             "title":"Menu",
+            #             "payload":"/viewMenu"
+            #         }
+            #     ]
+            # }
+        ]
+
+        dispatcher.utter_elements(*promo_elements)
         return []
 
 class ResetSlot(Action):
