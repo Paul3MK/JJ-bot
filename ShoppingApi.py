@@ -128,7 +128,7 @@ def storeJumia(url):
 	fetched_items=requests.get(url)
 	if fetched_items.status_code!=200:
 		
-		print("Error getting page.")
+		print("Error getting page: {}.".format(url))
 		pass
 	try:
 		soup=BeautifulSoup(fetched_items.text,"lxml")
