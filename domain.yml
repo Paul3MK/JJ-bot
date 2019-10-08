@@ -4,7 +4,9 @@ actions:
 - utter_demo
 - utter_demoOptions
 - utter_Menu
+- utter_done
 - utter_categories
+- utter_feedbackMsg
 - action_Onboarding
 - action_returnSmartphones
 - action_show_beats
@@ -12,20 +14,25 @@ actions:
 - action_display_brands_devices
 - action_reset_slot
 - action_view_promos
+- action_restart
 #- action_OnboardingDemo
 
 intents:
-- getStarted
+- FACEBOOK_WELCOME
 - onboardDemoVersace
 - onboardDemoBeats
 - viewMenu
 - viewCategories
 - viewTech
 - viewHardware
+- viewHealthBeauty
 - viewSmartphones
 - chooseSmarthphoneBrand
 - DeviceViewAction
 - viewPromos
+- chooseFragranceGender
+- feedback
+- chatRestart
 
 slots:
   smartphoneBrand:
@@ -54,10 +61,23 @@ slots:
     type: unfeaturized
   keyboardBrand:
     type: unfeaturized
+  healthCategory:
+    type: unfeaturized
+  makeupBrand:
+    type: unfeaturized
+  maleFragranceBrand:
+    type: unfeaturized
+  femaleFragranceBrand:
+    type: unfeaturized
+  skinCareBrand:
+    type: unfeaturized
+  hairCareBrand:
+    type: unfeaturized
 
 forms:
   - tech_form
   - hardware_form
+  - health_form
 
 templates:
   utter_greet:
@@ -73,8 +93,11 @@ templates:
     - payload: "/onboardDemoBeats"
       title: "Beats 🎧"
     text: "Pick one..."
+  utter_done:
+  - text: "Done!"
   utter_Menu:
   - text: "Menu"
+    channel: "facebook"
     quick_replies:
     - content_type: text
       payload: "/viewPromos"
@@ -83,23 +106,30 @@ templates:
       payload: "/viewCategories"
       title: "Categories"
     - content_type: text
-      payload: "/help"
-      title: "Help"
-    - content_type: text
       payload: "/feedback"
       title: "Feedback"
+    - content_type: text
+      payload: "/chatRestart"
+      title: "Reset chat"
+  - text: "Menu - console"
+  utter_feedbackMsg:
+  - text: "Awesome 😃! Please visit the page and leave a post, if you wish to provide feedback. Others will be able to respond to it too."
   utter_categories:
   - text: "Available categories"
     quick_replies:
+    - payload: "/viewMenu"
+      title: "🔙 Back"
     - payload: "/viewTech"
       title: "Tech - Devices"
-    - payload: "/viewHB"
+    - payload: "/viewHealthBeauty"
       title: "Health & Beauty"
     - payload: "/viewHardware"
       title: "Tech - Hardware"
   utter_ask_techCategory:  # necessary for the form to obtain information from the user
-  - text: "A nice selection of tech categories" #needs to be in utter_ask_{slot_name} format. 
+  - text: "A nice selection!" #needs to be in utter_ask_{slot_name} format. 
     quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"
     - payload: '/viewTech{"techCategory":"smartphones"}'
       title: "Smartphones"
     - payload: '/viewTech{"techCategory":"tablets"}'
@@ -111,8 +141,10 @@ templates:
     - payload: '/viewTech{"techCategory":"smartwatches"}'
       title: "Smartwatches"
   utter_ask_smartphoneBrand:
-  - text: "which smartphone brand"
+  - text: "Your preference?"
     quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"    
     - payload: '/viewSmartphones{"smartphoneBrand":"Huawei"}'
       title: "Huawei"
     - payload: '/viewSmartphones{"smartphoneBrand":"Tecno"}'
@@ -132,8 +164,10 @@ templates:
     - payload: '/viewSmartphones{"smartphoneBrand":"Nokia"}'
       title: "Nokia"
   utter_ask_tabletBrand:
-  - text: "which tab brand"
+  - text: "Tablet makers:"
     quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"    
     - payload: '/viewTablets{"tabletBrand":"Apple"}'
       title: "Apple"
     - payload: '/viewTablets{"tabletBrand":"Samsung"}'
@@ -145,8 +179,10 @@ templates:
     - payload: '/viewTablets{"tabletBrand":"Amazon"}'
       title: "Amazon"
   utter_ask_laptopBrand:
-  - text: "which laptop brand"
+  - text: "Brand?"
     quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"    
     - payload: '/viewLaptops{"laptopBrand":"Dell"}'
       title: "Dell"
     - payload: '/viewLaptops{"laptopBrand":"Apple"}'
@@ -158,8 +194,10 @@ templates:
     - payload: '/viewLaptops{"laptopBrand":"Lenovo"}'
       title: "Lenovo"
   utter_ask_tvBrand:
-  - text: "which tv brand"
+  - text: "It's your choice 😎"
     quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"    
     - payload: '/viewTvs{"tvBrand":"Sony"}'
       title: "Sony"
     - payload: '/viewTvs{"tvBrand":"Samsung"}'
@@ -181,8 +219,10 @@ templates:
     - payload: '/viewTvs{"tvBrand":"Vision Plus"}'
       title: "Vision Plus"
   utter_ask_smartwatchBrand:
-  - text: "which smartwatch brand"
+  - text: "From who's it going to be for your newest wrist accessory?"
     quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"    
     - payload: '/viewSmartwatches{"smartwatchBrand":"Apple"}'
       title: "Apple"
     - payload: '/viewSmartwatches{"smartwatchBrand":"Huawei"}'
@@ -192,8 +232,10 @@ templates:
     - payload: '/viewSmartwatches{"smartwatchBrand":"Lenovo"}'
       title: "Lenovo"
   utter_ask_hardwareCategory:
-  - text: "Check out some tech hardware 😉" #needs to be in utter_ask_{slot_name} format. 
+  - text: "Tech hardware and accessories 😉" #needs to be in utter_ask_{slot_name} format. 
     quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"    
     - payload: '/viewHardware{"hardwareCategory":"power_banks"}'
       title: "Power banks"
     - payload: '/viewHardware{"hardwareCategory":"chargers"}'
@@ -207,15 +249,19 @@ templates:
     - payload: '/viewHardware{"hardwareCategory":"keyboards"}'
       title: "Keyboards"
   utter_ask_power_bankBrand:
-  - text: "Pick a brand:"
+  - text: "Psst, Anker's a top-notch brand."
     quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"    
     - payload: '/viewPower_banks{"power_bankBrand":"Anker"}'
       title: "Anker"
     - payload: '/viewPower_banks{"power_bankBrand":"Oraimo"}'
       title: "Oraimo"
   utter_ask_chargerBrand:
-  - text: "Pick a brand:"
+  - text: "You know what to do..."
     quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"    
     - payload: '/viewChargers{"chargerBrand":"Infinix"}'
       title: "Infinix"
     - payload: '/viewChargers{"chargerBrand":"Apple"}'
@@ -223,8 +269,10 @@ templates:
     - payload: '/viewChargers{"chargerBrand":"Samsung"}'
       title: "Samsung"
   utter_ask_headphoneBrand:
-  - text: "Pick a brand:"
+  - text: "Choose from these quality headphone makers"
     quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"    
     - payload: '/viewHeadphones{"headphoneBrand":"Jbl"}'
       title: "JBL"
     - payload: '/viewHeadphones{"headphoneBrand":"Beats"}'
@@ -236,8 +284,10 @@ templates:
     - payload: '/viewHeadphones{"headphoneBrand":"Pace"}'
       title: "Pace"
   utter_ask_memory_cardBrand:
-  - text: "Pick a brand:"
+  - text: "Favorite memory card brands?"
     quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"    
     - payload: '/viewMemory_cards{"memory_cardBrand":"Sandisk"}'
       title: "Sandisk"
     - payload: '/viewMemory_cards{"memory_cardBrand":"Samsung"}'
@@ -251,8 +301,10 @@ templates:
     - payload: '/viewMemory_cards{"memory_cardBrand":"Oraimo"}'
       title: "Oraimo"
   utter_ask_mouseBrand:
-  - text: "Pick a brand:"
+  - text: "Mice from:"
     quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"    
     - payload: '/viewMice{"mouseBrand":"Logitech"}'
       title: "Logitech"
     - payload: '/viewMice{"mouseBrand":"HP"}'
@@ -274,11 +326,161 @@ templates:
     - payload: '/viewMice{"mouseBrand":"Apple"}'
       title: "Apple"
   utter_ask_keyboardBrand:
-  - text: "Pick a brand:"
+  - text: "Choose from:"
     quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"    
     - payload: '/viewKeyboards{"keyboardBrand":"Logitech"}'
       title: "Logitech"
     - payload: '/viewKeyboards{"keyboardBrand":"Apple"}'
       title: "HP"
     - payload: '/viewKeyboards{"keyboardBrand":"Razer"}'
       title: "Razer"
+
+  utter_ask_healthCategory:
+  - text: "Browse the health & beauty sections!"
+    quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"    
+    - payload: '/viewHealth{"healthCategory":"makeup"}'
+      title: "Makeup 💄"
+    - payload: '/viewHealth{"healthCategory":"maleFragrances"}'
+      title: "Fragrances - Men"
+    - payload: '/viewHealth{"healthCategory":"femaleFragrances"}'
+      title: "Fragrances - Women"
+    - payload: '/viewHealth{"healthCategory":"skinCare"}'
+      title: "Skin Care"
+    - payload: '/viewHealth{"healthCategory":"hairCare"}'
+      title: "Hair Care"
+  
+  utter_ask_makeupBrand:
+  - text: "Mmmm, quality 👌 products from:"
+    quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"    
+    - payload: "/viewMakeup{\"makeupBrand\":\"La Colour\"}"
+      title: "L.A. Colors"
+    - payload: "/viewMakeup{\"makeupBrand\":\"Maybelline\"}"
+      title: "Maybelline"
+    - payload: "/viewMakeup{\"makeupBrand\":\"Focallure\"}"
+      title: "Focallure"
+    - payload: "/viewMakeup{\"makeupBrand\":\"Flori Roberts\"}"
+      title: "Flori Roberts"
+    - payload: "/viewMakeup{\"makeupBrand\":\"Huddah Cosmetics\"}"
+      title: "Huddah Cosmetics"
+    - payload: "/viewMakeup{\"makeupBrand\":\"Kiss Beauty\"}"
+      title: "Kiss Beauty"
+    - payload: "/viewMakeup{\"makeupBrand\":\"L'Oreal\"}"
+      title: "L'Oreal"
+    - payload: "/viewMakeup{\"makeupBrand\":\"Mary Kay\"}"
+      title: "Mary Kay"
+    - payload: "/viewMakeup{\"makeupBrand\":\"Nyx\"}"
+      title: "Nyx"
+    - payload: "/viewMakeup{\"makeupBrand\":\"Zoya\"}"
+      title: "Zoya"
+
+  utter_ask_maleFragranceBrand:
+  - text: "Scents for the gentlemen, from:"
+    quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"  
+    - payload: '/viewMaleFragrances{"maleFragranceBrand":"Davidoff"}'
+      title: "Davidoff"
+    - payload: '/viewMaleFragrances{"maleFragranceBrand":"Calvin Klein"}'
+      title: "Calvin Klein"
+    - payload: '/viewMaleFragrances{"maleFragranceBrand":"Issey Miyake"}'
+      title: "Issey Miyake"
+    - payload: '/viewMaleFragrances{"maleFragranceBrand":"Hugo Boss"}'
+      title: "Hugo Boss"
+    - payload: '/viewMaleFragrances{"maleFragranceBrand":"Versace"}'
+      title: "Versace"
+    - payload: '/viewMaleFragrances{"maleFragranceBrand":"Bvlgari"}'
+      title: "Bvlgari"
+    - payload: '/viewMaleFragrances{"maleFragranceBrand":"Dunhill"}'
+      title: "Dunhill"
+    - payload: '/viewMaleFragrances{"maleFragranceBrand":"Chris Adams"}'
+      title: "Chris Adams"
+    - payload: '/viewMaleFragrances{"maleFragranceBrand":"Ralph Lauren"}'
+      title: "Ralph Lauren"
+    - payload: '/viewMaleFragrances{"maleFragranceBrand":"Mont Blanc"}'
+      title: "Mont Blanc"
+    - payload: '/viewMaleFragrances{"maleFragranceBrand":"Azzaro"}'
+      title: "Azzaro"
+
+  utter_ask_femaleFragranceBrand:
+  - text: "Enticing perfumes by:"
+    quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"  
+    - payload: "/viewFemaleFragrances{\"femaleFragranceBrand\":\"Calvin Klein\"}"
+      title: "Calvin Klein"
+    - payload: "/viewFemaleFragrances{\"femaleFragranceBrand\":\"Chris Adams\"}"
+      title: "Chris Adams"
+    - payload: "/viewFemaleFragrances{\"femaleFragranceBrand\":\"Elizabeth Arden\"}"
+      title: "Elizabeth Arden"
+    - payload: "/viewFemaleFragrances{\"femaleFragranceBrand\":\"Rasasi\"}"
+      title: "Rasasi"
+    - payload: "/viewFemaleFragrances{\"femaleFragranceBrand\":\"Chanel\"}"
+      title: "Chanel"
+    - payload: "/viewFemaleFragrances{\"femaleFragranceBrand\":\"Beyonce\"}"
+      title: "Beyonce"
+    - payload: "/viewFemaleFragrances{\"femaleFragranceBrand\":\"Dolce & Gabbana\"}"
+      title: "Dolce & Gabbana"
+    - payload: "/viewFemaleFragrances{\"femaleFragranceBrand\":\"Victoria's Secret\"}"
+      title: "Victoria's Secret"
+    - payload: "/viewFemaleFragrances{\"femaleFragranceBrand\":\"Burberry\"}"
+      title: "Burberry"
+    - payload: "/viewFemaleFragrances{\"femaleFragranceBrand\":\"Bvlgari\"}"
+      title: "Bvlgari"
+    
+  utter_ask_skinCareBrand:
+  - text: "Your favorite for your skin:"
+    quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"
+    - payload: "/viewSkinCare{\"skinCareBrand\":\"Garnier\"}"
+      title: "Garnier"
+    - payload: "/viewSkinCare{\"skinCareBrand\":\"L'Oreal\"}"
+      title: "L'Oreal"
+    - payload: "/viewSkinCare{\"skinCareBrand\":\"Mosara\"}"
+      title: "Mosara"
+    - payload: "/viewSkinCare{\"skinCareBrand\":\"Vaseline\"}"
+      title: "Vaseline"
+    - payload: "/viewSkinCare{\"skinCareBrand\":\"Dove\"}"
+      title: "Dove"
+    - payload: "/viewSkinCare{\"skinCareBrand\":\"Mixa\"}"
+      title: "Mixa"
+    - payload: "/viewSkinCare{\"skinCareBrand\":\"Neutrogena\"}"
+      title: "Neutrogena"
+    - payload: "/viewSkinCare{\"skinCareBrand\":\"Nivea\"}"
+      title: "Nivea"
+    - payload: "/viewSkinCare{\"skinCareBrand\":\"The Body Shop\"}"
+      title: "The Body Shop"
+    - payload: "/viewSkinCare{\"skinCareBrand\":\"St Ives\"}"
+      title: "St. Ives"
+
+  utter_ask_hairCareBrand:
+  - text: "Hair products by:"
+    quick_replies:
+    - payload: "/viewMenu"
+      title: "↩️ Menu"  
+    - payload: "/viewHairCare{\"hairCareBrand\":\"Garnier\"}"
+      title: "Garnier"
+    - payload: "/viewHairCare{\"hairCareBrand\":\"L'Oreal\"}"
+      title: "L'Oreal"
+    - payload: "/viewHairCare{\"hairCareBrand\":\"Mosara\"}"
+      title: "Mosara"
+    - payload: "/viewHairCare{\"hairCareBrand\":\"Vaseline\"}"
+      title: "Vaseline"
+    - payload: "/viewHairCare{\"hairCareBrand\":\"Dove\"}"
+      title: "Dove"
+    - payload: "/viewHairCare{\"hairCareBrand\":\"Mixa\"}"
+      title: "Mixa"
+    - payload: "/viewHairCare{\"hairCareBrand\":\"Neutrogena\"}"
+      title: "Neutrogena"
+    - payload: "/viewHairCare{\"hairCareBrand\":\"Nivea\"}"
+      title: "Nivea"
+    - payload: "/viewHairCare{\"hairCareBrand\":\"Shea Moisture\"}"
+      title: "Shea Moisture"
+    - payload: "/viewHairCare{\"hairCareBrand\":\"St Ives\"}"
+      title: "St. Ives"

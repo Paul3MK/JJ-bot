@@ -1,6 +1,6 @@
 from rasa_sdk import Action
 from rasa_sdk.forms import FormAction
-from rasa_sdk.events import SlotSet, FollowupAction
+from rasa_sdk.events import SlotSet, FollowupAction, Restarted, AllSlotsReset
 import psycopg2
 import imgscrapertest as imgscraper
 import re
@@ -10,38 +10,6 @@ cat_slot_value = ""
 brand_slot_value = ""
 off = 0
 offAppend = 0
-
-"""class TechCategoriesForm(FormAction):
-    # This form will take   care of the user's choice of category (within Tech) and the brand as well.
-    # The value of the brand slot can be used to create a database query right here, and the values will be returned from the db.
-    # We will do this in the ActionReturnSmartphones block, so we must call this action from here.
-    
-    def name(self): 
-
-        return "categories_form"
-
-    @staticmethod
-    def required_slots(tracker):
-
-        return ["category", "brand"] 
-
-    def submit(self, dispatcher, tracker, domain):
-        slot_value = tracker.get_slot('brand')
-
-        con = psycopg2.connect(database="jjtestdb", user="postgres", password="hieg")
-        off = 0
-        with con:
-
-	        cur = con.cursor()
-
-            for i in range(0, 50):
-                cur.execute("SELECT * FROM smartphones LIMIT 1 OFFSET %s WHERE brand=%s", (off, slot_value))
-                off ++
-
-
-            
-        # we will call the ActionReturnSmartphones in this method, or perhaps code the db connection here straightaway
-        # the db result must be returned here, and then formatted for FBMessenger"""
 
 class TechCatForm(FormAction):
     
@@ -71,17 +39,15 @@ class TechCatForm(FormAction):
         global offAppend
 
         cat_slot_value = tracker.get_slot('techCategory')
-        brand_dict = {"smartphones":"smartphoneBrand", "tablets":"tabletBrand", "laptops":"laptopBrand", "tvs":"tvBrand", "smartwatches":"smartwatchBrand"}
+        brand_dict = {"smartphones":"smartphoneBrand", "tablets":"tabletBrand", "laptops":"laptopBrand", "TVs":"tvBrand", "smartwatches":"smartwatchBrand"}
         
-        tCat = ['smartphones', 'tablets', 'laptops', 'tvs', 'smartwatches']
+        tCat = ['smartphones', 'tablets', 'laptops', 'TVs', 'smartwatches']
 
         for category in tCat:
             if (cat_slot_value == category):
                 brand_slot_value = tracker.get_slot(brand_dict[category])
 
-                dispatcher.utter_message("You have chosen {}".format(category))
-                dispatcher.utter_message("Brand is {}".format(brand_slot_value))
-
+                dispatcher.utter_message("The top {} from {}!".format(category, brand_slot_value))
         
         off = 0
         offAppend = 0
@@ -115,9 +81,9 @@ class HardwareCatForm(FormAction):
         global brand_slot_value
 
         cat_slot_value = tracker.get_slot('hardwareCategory')
-        acc_brand_dict = {"power_banks":"power_bankBrand", "chargers":"chargerBrand", "headphones":"headphoneBrand", "memory_cards":"memory_cardBrand", "mice":"mouseBrand", "keyboards":"keyboardBrand"}
+        acc_brand_dict = {"power banks":"power_bankBrand", "chargers":"chargerBrand", "headphones":"headphoneBrand", "memory cards":"memory_cardBrand", "mice":"mouseBrand", "keyboards":"keyboardBrand"}
 
-        aCat = ["power_banks", "chargers", "headphones", "memory_cards", "mice", "keyboards"]
+        aCat = ["power banks", "chargers", "headphones", "memory cards", "mice", "keyboards"]
 
         for category in aCat:
             if (cat_slot_value == category):
@@ -128,7 +94,41 @@ class HardwareCatForm(FormAction):
         return[FollowupAction("action_display_brands_devices")]      
 
 
+class HealthForm(FormAction):
+    def name(self):
+        return "health_form"
 
+    @staticmethod
+    def required_slots(tracker):
+        
+        if tracker.get_slot('healthCategory') == 'makeup':
+            return["healthCategory", "makeupBrand"]
+        elif tracker.get_slot('healthCategory') == 'maleFragrances':
+            return["healthCategory", "maleFragranceBrand"]
+        elif tracker.get_slot('healthCategory') == 'femaleFragrances':
+            return["healthCategory", "femaleFragranceBrand"]
+        elif tracker.get_slot('healthCategory') == 'skinCare':
+            return["healthCategory", "skinCareBrand"]
+        else:
+            return["healthCategory", "hairCareBrand"]
+    
+    def submit(self, dispatcher, tracker, domain):
+
+        global cat_slot_value
+        global brand_slot_value
+
+        cat_slot_value = tracker.get_slot('healthCategory')
+        he_brand_dict = {"makeup":"makeupBrand", "maleFragrances":"maleFragranceBrand", "femaleFragrances":"femaleFragranceBrand", "skinCare":"skinCare", "hairCare":"hairCareBrand"}
+
+        hCat = ["makeup", "maleFragrances", "femaleFragrances", "skinCare", "hairCare"]
+
+        for category in hCat:
+            if (cat_slot_value == category):
+                brand_slot_value = tracker.get_slot(he_brand_dict[category])
+
+                dispatcher.utter_message("Check out these personal care products 💥")
+
+        return[FollowupAction("action_display_brands_devices")]
 
 class DeviceViewAction(Action):
     def name(self):
@@ -202,13 +202,19 @@ class DeviceViewAction(Action):
             else:
                 devices_cards.append(
                     {
-                        "title":"That's it.",
+                        "title":"That's it from me.",
                         "image_url":"https://cdn1.iconfinder.com/data/icons/robot-emoji-line-faces/32/robot_emoji_sad-512.png",
                         "buttons": [
                             {
                                 "type":"postback",
                                 "title":"Menu",
                                 "payload":"/viewMenu",
+                            },
+                            {
+                                "type":"web_url",
+                                "url":"https://jumia.co.ke",
+                                "title":"Browse more stuff",
+                                "webview_height_ratio":"full"
                             }
                         ]
                     }
@@ -217,7 +223,7 @@ class DeviceViewAction(Action):
                 # dispatcher.utter_message("{}, it works!!".format(returned_device))
         #off = off + 1
         offAppend = offAppend + 9
-        return[SlotSet("techCategory", None), SlotSet("smartphoneBrand", None), SlotSet("smartwatchBrand", None), SlotSet("tabletBrand", None), SlotSet("laptopBrand", None), SlotSet("tvBrand", None)]
+        return[SlotSet("techCategory", None), SlotSet("hardwareCategory", None), SlotSet("healthCategory", None), SlotSet("smartphoneBrand", None), SlotSet("smartwatchBrand", None), SlotSet("tabletBrand", None), SlotSet("laptopBrand", None), SlotSet("tvBrand", None), SlotSet("power_bankBrand", None), SlotSet("chargerBrand", None), SlotSet("headphoneBrand", None), SlotSet("memory_cardBrand", None), SlotSet("mouseBrand", None), SlotSet("keyboardBrand", None), SlotSet("makeupBrand", None), SlotSet("maleFragranceBrand", None), SlotSet("femaleFragranceBrand", None), SlotSet("skinCareBrand", None), SlotSet("hairCareBrand", None)]
         #return[]
 
 
@@ -278,12 +284,12 @@ class ViewPromos(Action):
     def run(self, dispatcher, tracker, domain):
         promo_elements = [
             {
-                "title": "Jumia Mall",
-                "subtitle": "September 16th Launch",
-                "image_url": "https://ke.jumia.is/cms/2019/W38/KE_Mall_W36_HP_Slidernew.jpg",
+                "title": "Super Brand Day",
+                "subtitle": "October 8th only!",
+                "image_url": "https://ke.jumia.is/cms/2019/W41/SBD_Live/KE_W40_GenS_SBD_D.jpg",
                 "default_action": {
                     "type": "web_url",
-                    "url": "https://c.jumia.io/?a=146734&c=1624&p=r&E=kkYNyk2M4sk%3D&utm_campaign=146734&utm_term=",
+                    "url": "https://c.jumia.io/?a=146734&c=9&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3A%2F%2Fwww.jumia.co.ke%2Fsuper-brand-day%2F%3Fsource%3DS_W41&utm_campaign=146734",
                     "webview_height_ratio": "tall"
                 },
                 "buttons": [
@@ -330,18 +336,19 @@ class ViewPromos(Action):
                         "webview_height_ratio": "full"
                     }
                 ]
+            },
+            {
+                "title":"Top Deals",
+                "image_url":"https://ke.jumia.is//cms/2019/W39/TOP-DEALS.jpg",
+                "buttons": [
+                    {
+                        "type":"web_url",
+                        "url":"https://www.jumia.co.ke/top-deals/?source=HP_placement_W39",
+                        "title":"Go to page",
+                        "webview_height_ratio":"full"
+                    }
+                ]
             }
-            # {
-            #     "title":"That's it.",
-            #     "image_url":"https://cdn1.iconfinder.com/data/icons/robot-emoji-line-faces/32/robot_emoji_sad-512.png",
-            #     "buttons": [
-            #         {
-            #             "type":"postback",
-            #             "title":"Menu",
-            #             "payload":"/viewMenu"
-            #         }
-            #     ]
-            # }
         ]
 
         dispatcher.utter_elements(*promo_elements)
@@ -353,4 +360,15 @@ class ResetSlot(Action):
         return "action_reset_slot"
 
     def run(self, dispatcher, tracker, domain):
-        return [SlotSet(brand_slot_value, None), SlotSet(cat_slot_value, None)]
+        #return [SlotSet(brand_slot_value, None), SlotSet(cat_slot_value, None)]
+        return[AllSlotsReset()]   
+
+class RestartChat(Action):
+
+    def name(self):
+        return "action_restart"
+
+    def run(self, dispatcher, tracker, domain):
+        dispatcher.utter_message("Restarting chat...")
+        dispatcher.utter_message("Done!")
+        return[Restarted(), FollowupAction("utter_Menu")]

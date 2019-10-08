@@ -9,3 +9,4 @@ policies:
 - fallback_action_name: action_default_fallback
   name: FallbackPolicy
 - name: FormPolicy
+# - name: MappingPolicy
