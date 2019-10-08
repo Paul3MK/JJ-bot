@@ -8,7 +8,7 @@ def JumiaImgScraper(url):
     req = request.Request(url, headers={'User-Agent' : "Mono Browser"})
     html = request.urlopen(req)
     bs = bs4.BeautifulSoup(html, "lxml")
-    image = bs.find(attrs={"class":"lazy", "data-position":"0"})["data-src"]
+    image = bs.find(attrs={"class":"itm", "data-selected":"1"})["href"]
 
     return image
 
