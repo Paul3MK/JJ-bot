@@ -11,6 +11,15 @@ import time as uniqueTime
 import appPinger
 from datetime import time, datetime
 
+def pingFunc():
+    urllib.request.urlopen("https://jjbot-test.herokuapp.com/")
+    print("pinged your app")
+
+def appPing():
+    """This function is repsonsible for keeping the bot online (kinda like Pingdom or Kaffeine). It pings the app's domain every 29 minutes (because the apps on Heroku's free tier fall asleep after 30 minutes) by running the pingFunc function. This to minimise the bot's response time and to prevent db provisioning & dialogue training all the time"""
+    schedule.every(14).minutes.do(pingFunc)
+    schedule.run_pending()
+
 def main(kill=None):
     DATABASE_URL = os.environ['DATABASE_URL']
     # con = psycopg2.connect(database="jjtestdb", user="postgres", password="hieg") #for local work
@@ -62,7 +71,7 @@ while True:
         print("This should not get printed either.")
     else:
         if main.has_been_called:
-            pass
+            appPing()
         else:
             main()
     uniqueTime.sleep(60)
