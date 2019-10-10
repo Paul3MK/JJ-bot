@@ -29,8 +29,6 @@ def main(kill=None):
             pass
 
 
-    ap = subprocess.Popen(["python", "appPinger.py"])
-    ap
     dsr = subprocess.Popen(["python", "dialogueServerRun.py"])
     dsr
     asr = subprocess.Popen(["python", "actionServerRun.py"]) #here we're launching the action server and moving on; necessary otherwise Python would hang after this command, as it would wait for the server to stop before continuing
@@ -39,7 +37,6 @@ def main(kill=None):
     if kill:
         uniqueTime.sleep(30)
         print("Killing all processes and exiting.")
-        ap.kill()
         dsr.kill()
         asr.kill()
         sys.exit(0)
