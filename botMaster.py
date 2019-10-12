@@ -71,7 +71,8 @@ while True:
         print("This should not get printed either.")
     else:
         if main.has_been_called:
-            appPing()
+            pingFunc()
+            uniqueTime.sleep(840)
         else:
             main()
     uniqueTime.sleep(60)
