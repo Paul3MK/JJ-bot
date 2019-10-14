@@ -56,17 +56,17 @@ def main(kill=None):
 main.has_been_called = False # here we set the attribute to false initially; required. We're essentially giving this an initial value
 
 while True:
-    if appPinger.is_time_between(time(4,00), time(9,00)): #+3 hours because Kenya is GMT+3
+    if appPinger.is_time_between(time(22,00), time(3,00)): #+3 hours because Kenya is GMT+3
         print("Exit.")
         sys.exit(0)
         print("This should never get printed.")
-    elif appPinger.is_time_between(time(9,00), time(10,00)):
+    elif appPinger.is_time_between(time(3,00), time(4,00)):
         if main.has_been_called:
             sys.exit(0)
         else:
             main.has_been_called = True
             main(1) # because the if block in the main function checks whether a parameter exists, this will trigger it
-    elif appPinger.is_time_between(time(10,00), time(11,00)):
+    elif appPinger.is_time_between(time(4,00), time(5,00)):
         sys.exit(0)
         print("This should not get printed either.")
     else:
