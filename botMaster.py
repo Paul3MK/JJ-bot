@@ -56,25 +56,55 @@ def main(kill=None):
 main.has_been_called = False # here we set the attribute to false initially; required. We're essentially giving this an initial value
 
 while True:
-    if appPinger.is_time_between(time(22,00), time(3,00)): #+3 hours because Kenya is GMT+3
-        print("Exit.")
-        sys.exit(0)
-        print("This should never get printed.")
-    elif appPinger.is_time_between(time(3,00), time(4,00)):
-        if main.has_been_called:
+    DATABASE_URL = os.environ['DATABASE_URL']
+    # con = psycopg2.connect(database="jjtestdb", user="postgres", password="hieg") #for local work
+    con =  psycopg2.connect(DATABASE_URL, sslmode='require')
+    with con:
+
+        cur = con.cursor()
+        cur.execute("CREATE TABLE botCrash(attemptedRestarts CHAR(1))")
+        cur.execute("INSERT INTO botCrash VALUES('0')")
+        cur.execute("SELECT * FROM botCrash")
+        resVar = str(cur.fetchall())
+
+        if appPinger.is_time_between(time(22,00), time(22,30)): #-3 hours because Kenya is GMT+3
+            cur.execute("DROP TABLE IF EXISTS botCrash")
+            cur.execute("CREATE TABLE botCrash(attemptedRestarts CHAR(1))")
+            cur.execute("INSERT INTO botCrash VALUES ('0')")
+
+            print("Exit.")
+            sys.exit(0)
+            print("This should never get printed.")
+        elif '0' in resVar:
+            cur.execute("UPDATE botCrash SET attemptedRestarts='1' WHERE attemptedRestarts='0'")
+            print("First restart")
+            sys.exit(0)
+        elif '1' in resVar:
+            cur.execute("UPDATE botCrash SET attemptedRestarts='2' WHERE attemptedRestarts='1'")
+            print("Second restart")
+            sys.exit(0)
+        elif '2' in resVar:
+            cur.execute("UPDATE botCrash SET attemptedRestarts='3' WHERE attemptedRestarts='2'")
+            print("Third restart")
+            sys.exit(0)
+        elif '3' in resVar:
+            cur.execute("UPDATE botCrash SET attemptedRestarts='4' WHERE attemptedRestarts='3'")
+            print("Fourth restart")
+            sys.exit(0)
+        elif '4' in resVar:
+            cur.execute("UPDATE botCrash SET attemptedRestarts='5' WHERE attemptedRestarts='4'")
+            print("Fifth restart")
+            main(1) #this is to trigger the main function's kill logic; line 46
+        elif '5' in resVar:
+            cur.execute("UPDATE botCrash SET attemptedRestarts='6' WHERE attemptedRestarts='5'")
+            print("Sixth restart")
             sys.exit(0)
         else:
-            main.has_been_called = True
-            main(1) # because the if block in the main function checks whether a parameter exists, this will trigger it
-    elif appPinger.is_time_between(time(4,00), time(5,00)):
-        sys.exit(0)
-        print("This should not get printed either.")
-    else:
-        if main.has_been_called:
-            pingFunc()
-            uniqueTime.sleep(840)
-        else:
-            main()
+            if main.has_been_called:
+                pingFunc()
+                uniqueTime.sleep(840)
+            else:
+                main()
     uniqueTime.sleep(60)
 
 main()
