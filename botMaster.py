@@ -62,8 +62,6 @@ while True:
     with con:
 
         cur = con.cursor()
-        cur.execute("CREATE TABLE botCrash(attemptedRestarts CHAR(1))")
-        cur.execute("INSERT INTO botCrash VALUES('0')")
         cur.execute("SELECT * FROM botCrash")
         resVar = str(cur.fetchall())
 
