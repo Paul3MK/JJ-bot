@@ -62,6 +62,7 @@ while True:
     with con:
 
         cur = con.cursor()
+        cur.execute("CREATE TABLE IF NOT EXISTS botCrash(attemptedRestarts CHAR(1))")
         cur.execute("SELECT * FROM botCrash")
         resVar = str(cur.fetchall())
 
