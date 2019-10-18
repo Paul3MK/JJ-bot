@@ -70,32 +70,38 @@ while True:
             cur.execute("DROP TABLE IF EXISTS botCrash")
             cur.execute("CREATE TABLE botCrash(attemptedRestarts CHAR(1))")
             cur.execute("INSERT INTO botCrash VALUES ('0')")
-
+            con.commit()
             print("Exit.")
             sys.exit(0)
             print("This should never get printed.")
         elif '0' in resVar:
             cur.execute("UPDATE botCrash SET attemptedRestarts='1' WHERE attemptedRestarts='0'")
+            con.commit()
             print("First restart")
             sys.exit(0)
         elif '1' in resVar:
             cur.execute("UPDATE botCrash SET attemptedRestarts='2' WHERE attemptedRestarts='1'")
+            con.commit()
             print("Second restart")
             sys.exit(0)
         elif '2' in resVar:
             cur.execute("UPDATE botCrash SET attemptedRestarts='3' WHERE attemptedRestarts='2'")
+            con.commit()
             print("Third restart")
             sys.exit(0)
         elif '3' in resVar:
             cur.execute("UPDATE botCrash SET attemptedRestarts='4' WHERE attemptedRestarts='3'")
+            con.commit()
             print("Fourth restart")
             sys.exit(0)
         elif '4' in resVar:
             cur.execute("UPDATE botCrash SET attemptedRestarts='5' WHERE attemptedRestarts='4'")
+            con.commit()
             print("Fifth restart")
             main(1) #this is to trigger the main function's kill logic; line 46
         elif '5' in resVar:
             cur.execute("UPDATE botCrash SET attemptedRestarts='6' WHERE attemptedRestarts='5'")
+            con.commit()
             print("Sixth restart")
             sys.exit(0)
         else:
