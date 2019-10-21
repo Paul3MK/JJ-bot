@@ -72,7 +72,7 @@ while True:
             cur.execute("INSERT INTO botCrash VALUES ('0')")
             con.commit()
             print("Exit.")
-            sys.exit(0)
+            main(1)
             print("This should never get printed.")
         elif '0' in resVar:
             cur.execute("UPDATE botCrash SET attemptedRestarts='1' WHERE attemptedRestarts='0'")
