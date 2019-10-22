@@ -284,19 +284,19 @@ class ViewPromos(Action):
     def run(self, dispatcher, tracker, domain):
         promo_elements = [
             {
-                "title": "Super Brand Day",
-                "subtitle": "October 8th only!",
-                "image_url": "https://ke.jumia.is/cms/2019/W41/SBD_Live/KE_W40_GenS_SBD_D.jpg",
+                "title": "Black Friday Sale",
+                "subtitle": "November 8th - 29th!",
+                "image_url": "https://ke.jumia.is/cms/2019/W42/KE_W42_BF_TeasingSlider_17102019_D_2.png",
                 "default_action": {
                     "type": "web_url",
-                    "url": "https://c.jumia.io/?a=146734&c=9&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3A%2F%2Fwww.jumia.co.ke%2Fsuper-brand-day%2F%3Fsource%3DS_W41&utm_campaign=146734",
+                    "url": "https://c.jumia.io/?a=146734&c=9&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3A%2F%2Fwww.jumia.co.ke%2Fblack-friday%2F%3Fsource%3DS_W43S_W41&utm_campaign=146734",
                     "webview_height_ratio": "tall"
                 },
                 "buttons": [
                     {
                         "type": "web_url",
                         "title": "Go to page",
-                        "url": "https://c.jumia.io/?a=146734&c=1624&p=r&E=kkYNyk2M4sk%3D&utm_campaign=146734&utm_term=",
+                        "url": "https://c.jumia.io/?a=146734&c=9&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3A%2F%2Fwww.jumia.co.ke%2Fblack-friday%2F%3Fsource%3DS_W43S_W41&utm_campaign=146734",
                         "webview_height_ratio": "full"
                     }
                 ]
