@@ -354,6 +354,70 @@ class ViewPromos(Action):
         dispatcher.utter_elements(*promo_elements)
         return []
 
+
+class ViewJumiaActions(Action):
+    
+    def name(self):
+        return "action_view_jumiaActions"
+
+    def run(self, dispatcher, tracker, domain):
+        actions_elements = [
+            {
+                "title": "Account Management",
+                "subtitle": "Login or Sign Up",
+                "image_url": "https://jjbot-test.herokuapp.com/user.png",
+                "default_action": {
+                    "type": "web_url",
+                    "url": "https://c.jumia.io/?a=146734&c=9&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3F%2F%2Fwww.jumia.co.ke%2Fcustomer%2Faccount%2Findex%2F&utm_campaign=146734",
+                    "webview_height_ratio": "tall"
+                },
+                "buttons": [
+                    {
+                        "type": "web_url",
+                        "title": "Login/Sign Up",
+                        "url": "https://c.jumia.io/?a=146734&c=9&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3F%2F%2Fwww.jumia.co.ke%2Fcustomer%2Faccount%2Findex%2F&utm_campaign=146734",
+                        "webview_height_ratio": "full"
+                    }
+                ]
+            },
+            {
+                "title": "Cart",
+                "subtitle": "Check what's in your cart!",
+                "image_url": "https://jjbot-test.herokuapp.com/shopping-cart-empty-side-view.png",
+                "default_action": {
+                    "type": "web_url",
+                    "url": "https://c.jumia.io/?a=146734&c=1640&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3F%2F%2Fwww.jumia.co.ke%2Fcart%2F",
+                    "webview_height_ratio": "tall"
+                },
+                "buttons": [
+                    {
+                        "type": "web_url",
+                        "url": "https://c.jumia.io/?a=146734&c=1640&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3F%2F%2Fwww.jumia.co.ke%2Fcart%2F",
+                        "title": "Go to page",
+                        "webview_height_ratio": "full"
+                    }
+                ]
+            },
+            {
+                "title": "Help Center",
+                "subtitle": "Follow this link if you need help with Jumia!",
+                "image_url": "https://jjbot-test.herokuapp.com/customer-problem.png",
+                "default_action": {
+                    "type": "web_url",
+                    "url": "https://c.jumia.io/?a=146734&c=1640&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3F%2F%2Fwww.jumia.co.ke%2Fhelp%2F",
+                    "webview_height_ratio": "tall"
+                },
+                "buttons": [
+                    {
+                        "type": "web_url",
+                        "url": "https://c.jumia.io/?a=146734&c=1640&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3F%2F%2Fwww.jumia.co.ke%2Fhelp%2F",
+                        "title": "Go to page",
+                        "webview_height_ratio": "full"
+                    }
+                ]
+            },        
+
+
 class ResetSlot(Action):
 
     def name(self):
