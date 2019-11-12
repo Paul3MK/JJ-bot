@@ -13,6 +13,7 @@ def JumiaImgScraper(url):
         return image
     except TypeError:
         print("The following URL cannot be found: {}".format(url))
+        return 99
 
 def main(): 
     JumiaImgScraper("https://www.jumia.co.ke/6.1-2018-5.5-32gb-rom-3gb-ram-16mp-camera-dual-sim-black-copper-nokia-mpg114073.html")

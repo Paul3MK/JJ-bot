@@ -53,6 +53,8 @@ def DatabaseProvisioning():
 				device_page = sapi.storeJumia(link)
 				for i in device_page:
 						img = imgscraper.JumiaImgScraper(i[5])
+						if img == 99:
+							break
 						corr_link = urllib.parse.quote((i[5]), safe='')
 						corr_link = "https://c.jumia.io/?a=146734&c=9&p=r&E=kkYNyk2M4sk%3D&ckmrdr=" + corr_link + "&utm_campaign=146734"
 						executionInsert = "INSERT INTO "+device_cat_list[j]+"(img_url, brand, name, price, discount, link) VALUES(%(url)s, %(br)s, %(nm)s, %(prc)s, %(dnt)s, %(lnk)s)"
