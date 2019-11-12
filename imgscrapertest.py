@@ -4,16 +4,18 @@ import lxml
 import psycopg2
 
 def JumiaImgScraper(url):
-    
-    req = request.Request(url, headers={'User-Agent' : "Mono Browser"})
-    html = request.urlopen(req)
-    bs = bs4.BeautifulSoup(html, "lxml")
-    image = bs.find(attrs={"class":"itm", "data-selected":"1"})["href"]
+    try:
+        req = request.Request(url, headers={'User-Agent' : "Mono Browser"})
+        html = request.urlopen(req)
+        bs = bs4.BeautifulSoup(html, "lxml")
+        image = bs.find(attrs={"class":"itm", "data-selected":"1"})["href"]
 
-    return image
+        return image
+    except TypeError:
+        print("The following URL cannot be found: {}".format(url))
 
-# def main():
-#     #JumiaImgScraper("https://www.jumia.co.ke/6.1-2018-5.5-32gb-rom-3gb-ram-16mp-camera-dual-sim-black-copper-nokia-mpg114073.html")
+def main(): 
+    JumiaImgScraper("https://www.jumia.co.ke/6.1-2018-5.5-32gb-rom-3gb-ram-16mp-camera-dual-sim-black-copper-nokia-mpg114073.html")
 
 #     cbrand = input("Choice of brand: ")
 
@@ -34,4 +36,4 @@ def JumiaImgScraper(url):
 #                 continue
 #             print(JumiaImgScraper(returned_phone[5]))
 
-# main()
+main()

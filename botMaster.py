@@ -38,10 +38,10 @@ def main(kill=None):
             pass
 
 
-    dsr = subprocess.Popen(["python", "dialogueServerRun.py"])
-    dsr
     asr = subprocess.Popen(["python", "actionServerRun.py"]) #here we're launching the action server and moving on; necessary otherwise Python would hang after this command, as it would wait for the server to stop before continuing
     asr
+    dsr = subprocess.Popen(["python", "dialogueServerRun.py"])
+    dsr
 
     if kill:
         uniqueTime.sleep(30)

@@ -15,6 +15,7 @@ actions:
 - action_reset_slot
 - action_view_promos
 - action_restart
+- action_view_jumiaActions
 #- action_OnboardingDemo
 
 intents:
@@ -33,6 +34,7 @@ intents:
 - chooseFragranceGender
 - feedback
 - chatRestart
+- viewJumiaActions
 
 slots:
   smartphoneBrand:
@@ -111,6 +113,9 @@ templates:
     - content_type: text
       payload: "/chatRestart"
       title: "Reset chat"
+    - content_type: text
+      payload: "/viewJumiaActions"
+      title: "Jumia Actions"
   - text: "Menu - console"
   utter_feedbackMsg:
   - text: "Awesome 😃! Please visit the page and leave a post, if you wish to provide feedback. Others will be able to respond to it too."

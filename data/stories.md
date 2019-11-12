@@ -66,3 +66,8 @@
 ## resetChat
 * chatRestart
     - action_restart
+
+## displayJumiaActions
+* viewJumiaActions
+    - action_view_jumiaActions
+    - utter_Menu

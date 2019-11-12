@@ -286,7 +286,7 @@ class ViewPromos(Action):
             {
                 "title": "Black Friday Sale",
                 "subtitle": "November 8th - 29th!",
-                "image_url": "https://ke.jumia.is/cms/2019/W42/KE_W42_BF_TeasingSlider_17102019_D_2.png",
+                "image_url": "https://ke.jumia.is/cms/2019/W44/KE_W44_BF_TeasingSlider_25102019B.jpg",
                 "default_action": {
                     "type": "web_url",
                     "url": "https://c.jumia.io/?a=146734&c=9&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3A%2F%2Fwww.jumia.co.ke%2Fblack-friday%2F%3Fsource%3DS_W43S_W41&utm_campaign=146734",
@@ -302,9 +302,9 @@ class ViewPromos(Action):
                 ]
             },
             {
-                "title": "FIFA 20",
-                "subtitle": "Pre-order",
-                "image_url": "https://ke.jumia.is/cms/2019/W37/KE_W37_FiFa_S_Pre-order_D.jpg",
+                "title": "Jumia Mall",
+                "subtitle": "Official Stores!",
+                "image_url": "https://ke.jumia.is/cms/2019/W38/KE_Mall_W36_HP_Slidernew.jpg",
                 "default_action": {
                     "type": "web_url",
                     "url": "https://c.jumia.io/?a=146734&c=1640&p=r&E=kkYNyk2M4sk%3D&utm_campaign=146734&utm_term=",
@@ -322,7 +322,7 @@ class ViewPromos(Action):
             {
                 "title": "Carrefour",
                 "subtitle": "Groceries",
-                "image_url": "https://ke.jumia.is/cms/2019/W37/corrections/Carrefour-Groceries_WK37_DBanner.jpg",
+                "image_url": "https://ke.jumia.is/cms/2019/W43/slider_revamp/KE_S_W43_Carrefour_D.jpg",
                 "default_action": {
                     "type": "web_url",
                     "url": "https://c.jumia.io/?a=146734&c=9&p=r&E=kkYNyk2M4sk%3D&ckmrdr=https%3A%2F%2Fwww.jumia.co.ke%2Fcarrefour%2F%3Fsource%3DHP_DoubleBanner_W37&utm_campaign=146734",
@@ -415,8 +415,10 @@ class ViewJumiaActions(Action):
                         "webview_height_ratio": "full"
                     }
                 ]
-            },        
-
+            }
+        ]
+        dispatcher.utter_elements(*actions_elements)
+        return []
 
 class ResetSlot(Action):
 
